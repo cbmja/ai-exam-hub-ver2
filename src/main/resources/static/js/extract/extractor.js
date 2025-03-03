@@ -4,6 +4,53 @@ $(document).ready(function () {
 const pdfjsLib = window['pdfjsLib'] || window['pdfjs-dist/build/pdf'];
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
+let examCateCode;
+let examOrgCode;
+let examYear;
+let examMonth;
+let examSubjectCode;
+let examType;
+
+let examCateName;
+let examOrgName;
+let examSubjectName;
+let examTypeName;
+
+// 시험 select 변경 시 값 저장
+$(document).on('change', '.extract-select', function(){
+
+    let id = $(this).attr('id');
+    let value = $(this).val();
+
+    let originalText = $('#'+id+' option:selected').text();
+
+    switch(id){
+        case 'exam-cate-form' :
+            examCateCode = value;
+            examCateName = originalText;
+            break;
+        case 'exam-org-form' :
+            examOrgCode = value;
+            examOrgName = originalText;
+            break;
+        case 'subject-form' :
+            examSubjectCode = value;
+            examSubjectName = originalText;
+            break;
+        case 'year-form' :
+            examYear = value;
+            break;
+        case 'month-form' :
+            examMonth = value;
+            break;
+        case 'type-form' :
+            examType = value;
+            examTypeName = originalText;
+            break;
+    }
+
+});
+
 /* pdf 드래그 영역 */
 const dropArea = $('#extract-pdf-ar');
 
@@ -51,7 +98,6 @@ dropArea.on('drop', function(event) {
 
 });
 
-
 /* 공통 보기 생성 폼 닫기 */
 $(document).on('click', '#common-passage-form-close', function(){
 
@@ -69,7 +115,6 @@ $(document).on('click', '#common-passage-btn', function(){
 
 });
 
-
 /* 문제 추출 버튼 클릭시 */
 $(document).on('click', '#extract-question-btn', function () {
 
@@ -77,6 +122,10 @@ $(document).on('click', '#extract-question-btn', function () {
         alert('시험지를 업로드 하세요.');
         return;
     }
+
+    let selectedExam = `${examYear}_${examMonth} 월_${examCateName}_${examSubjectName}_${examTypeName}`;
+
+    $('#select-exam-info').empty().append(selectedExam);
 
     $('#extract-form').css('display', 'none');
     $('#extract-exam').css('display', 'block').empty();
@@ -111,7 +160,7 @@ $(document).on('click', '#extract-question-btn', function () {
                             height: viewport.height / scale + "px"
                         });
 
-                        /
+
                         page.render({ canvasContext: context, viewport }).promise.then(function () {
                             // Canvas를 이미지로 변환 (고해상도 유지)
                             const img = $('<img>')
