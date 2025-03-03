@@ -70,7 +70,7 @@ $(document).on('click', '#common-passage-btn', function(){
 });
 
 
-/* 공통 보기 생성 폼 열기 */
+/* 문제 추출 버튼 클릭시 */
 $(document).on('click', '#extract-question-btn', function () {
 
     if (!upLoadFile) {
@@ -86,7 +86,6 @@ $(document).on('click', '#extract-question-btn', function () {
 
     reader.onload = function () {
         const arrayBuffer = reader.result;
-
         const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
 
         loadingTask.promise
@@ -95,31 +94,32 @@ $(document).on('click', '#extract-question-btn', function () {
 
                 function renderPage(pageNum) {
                     pdf.getPage(pageNum).then(function (page) {
-                        const scale = 2.5; // 해상도 조절
+                        const scale = 2.5; // 해상도
                         const viewport = page.getViewport({ scale });
-
-                        const aspectRatio = 0.8;
 
                         // Canvas 생성
                         const canvas = $('<canvas></canvas>')[0];
                         const context = canvas.getContext('2d');
+
+
                         canvas.width = viewport.width;
-                        canvas.height = viewport.height * aspectRatio;
+                        canvas.height = viewport.height;
+
 
                         $(canvas).css({
-                            width: (viewport.width / scale) + "px",
-                            height: (viewport.height * aspectRatio / scale) + "px"
+                            width: viewport.width / scale + "px",
+                            height: viewport.height / scale + "px"
                         });
 
-                        // PDF 페이지를 Canvas에 렌더링
+                        /
                         page.render({ canvasContext: context, viewport }).promise.then(function () {
-                            // Canvas를 이미지로 변환
+                            // Canvas를 이미지로 변환 (고해상도 유지)
                             const img = $('<img>')
                                 .attr('src', canvas.toDataURL('image/png'))
                                 .css({
-                                    width: "100%",
-                                    "max-width": (viewport.width / scale) + "px",
-                                    "height": (viewport.height * aspectRatio / scale) + "px"
+                                    width: "70%", // 반응형 크기 조절
+                                    "max-width": viewport.width + "px",
+                                    "height": "auto" // 가로·세로 비율 유지
                                 });
 
                             // `extract-exam` div에 이미지 추가
@@ -139,8 +139,11 @@ $(document).on('click', '#extract-question-btn', function () {
             .catch(function (error) {
                 console.error('PDF 로드 중 오류 발생:', error);
             });
-    }; // ← 여기에 `FileReader.onload` 닫는 `}` 추가됨
+    };
 });
+
+
+
 
 
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
