@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+
+
+    <div class="modal-background c-c" style="background-color: #2E3434 !important;">
+
+        <div class="login-form c-c-c">
+
+            <input class="input-box" style="width: calc(80% + 19px); height: 40px;" placeholder="ID"/>
+            <div style="height: 10px;"></div>
+            <input class="input-box" style="width: calc(80% + 19px); height: 40px;" placeholder="PW"/>
+            <div style="height: 10px;"></div>
+            <div class="black-btn" style="width: 80%;">로그인</div>
+
+        </div>
+
+    </div>
+
+
+
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>

@@ -22,4 +22,9 @@ public class TestingController {
     public String extract(){
         return "view/extract/extractor";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "view/login/login";
+    }
 }
