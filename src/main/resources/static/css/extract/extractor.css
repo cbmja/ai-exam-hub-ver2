@@ -22,3 +22,23 @@
     width: 749px;
 }
 
+.common-passage-form{
+
+    width: 500px;
+
+    background-color: #d8dae6;
+
+    border-radius: 3px;
+
+    padding: 10px;
+
+    font-size: 15px;
+    color: #141517;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
