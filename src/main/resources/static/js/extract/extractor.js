@@ -16,6 +16,14 @@ let examOrgName;
 let examSubjectName;
 let examTypeName;
 
+const currentYear = new Date().getFullYear();
+const selectBox = $("#year-form");
+
+// 20년 전까지 반복문으로 option 추가
+for (let year = currentYear; year >= currentYear - 35; year--) {
+    selectBox.append(`<option value="${year}">${year}</option>`);
+}
+
 // 시험 select 변경 시 값 저장
 $(document).on('change', '.extract-select', function(){
 
