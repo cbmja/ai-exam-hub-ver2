@@ -34,7 +34,20 @@ $(document).ready(function () {
 
                 console.log(response);
                 switch (response){
-                    case 'join success': alert('회원가입 완료.'); break;
+                    case 'join success': alert('회원가입 완료.');
+
+                        $('#join-email').val("");
+                        $('#join-id').val("");
+                        $('#join-pw').val("");
+                        $('#join-pw2').val("");
+                        $('#join-phone').val("");
+
+
+                        $('#login-id').val("");
+                        $('#login-pw').val("");
+                        $('#login-form-ar').css('display' , 'flex');
+                        $('#join-form-ar').css('display' , 'none');
+                        break;
                     case 'duplicate email': alert('사용중인 이메일 입니다.'); break;
                     case 'duplicate id': alert('사용중인 아이디 입니다.'); break;
                     case 'duplicate phone': alert('사용중인 전화번호 입니다.'); break;

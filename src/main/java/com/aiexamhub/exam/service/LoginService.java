@@ -21,24 +21,24 @@ public class LoginService {
     @Transactional
     public String join(Member form){
 
-            int IdCheck = sql.selectOne("com.aiexamhub.exam.mapper.MemberMapper.countByMemberId",form.getMemberId());
-            int emailCheck = sql.selectOne("com.aiexamhub.exam.mapper.MemberMapper.countByEmail",form.getEmail());
-            int phoneCheck = sql.selectOne("com.aiexamhub.exam.mapper.MemberMapper.countByPhone",form.getPhone());
+        int IdCheck = sql.selectOne("com.aiexamhub.exam.mapper.MemberMapper.countByMemberId",form.getMemberId());
+        int emailCheck = sql.selectOne("com.aiexamhub.exam.mapper.MemberMapper.countByEmail",form.getEmail());
+        int phoneCheck = sql.selectOne("com.aiexamhub.exam.mapper.MemberMapper.countByPhone",form.getPhone());
 
-            if(emailCheck > 0){
-                return "duplicate email";
-            }
+        if(emailCheck > 0){
+            return "duplicate email";
+        }
 
-            if(IdCheck > 0){
-                return "duplicate id";
-            }
+        if(IdCheck > 0){
+            return "duplicate id";
+        }
 
-            if(phoneCheck > 0){
-                return "duplicate phone";
-            }
+        if(phoneCheck > 0){
+            return "duplicate phone";
+        }
 
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHH:mm:ss.SSSSSSSSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSSSSSSSS");
         Random random = new Random();
         char r1 = (char) (random.nextBoolean() ? random.nextInt(26) + 'A' : random.nextInt(26) + 'a');
         char r2 = (char) (random.nextBoolean() ? random.nextInt(26) + 'A' : random.nextInt(26) + 'a');
