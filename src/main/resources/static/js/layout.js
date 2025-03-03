@@ -39,10 +39,16 @@ $(document).ready(function () {
 
         $('#login-form').css('display' , 'flex');
 
+        $('#login-id').val("");
+        $('#login-pw').val("");
+
     });
 
     /* 로그인 모달 */
     $(document).on('click', '#login-btn2', function(){
+
+        $('#login-id').val("");
+        $('#login-pw').val("");
 
         $('#login-form-ar').css('display' , 'flex');
         $('#join-form-ar').css('display' , 'none');
@@ -52,9 +58,16 @@ $(document).ready(function () {
     /* 회원가입 모달 */
     $(document).on('click', '#join-btn', function(){
 
+        $('#join-email').val("");
+        $('#join-id').val("");
+        $('#join-pw').val("");
+        $('#join-pw2').val("");
+        $('#join-phone').val("");
+
         $('#login-form-ar').css('display' , 'none');
 
         $('#join-form-ar').css('display' , 'flex');
+
     });
 
 
