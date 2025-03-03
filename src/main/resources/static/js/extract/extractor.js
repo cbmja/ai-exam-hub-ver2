@@ -49,5 +49,23 @@ dropArea.on('drop', function(event) {
 });
 
 
+/* 공통 보기 생성 폼 닫기 */
+$(document).on('click', '#common-passage-form-close', function(){
+
+    $('#common-passage-form').css('display' , 'none');
+
+    $('#common-passage-no').val("");
+    $('#common-passage-content').val("");
+
+});
+
+/* 공통 보기 생성 폼 열기 */
+$(document).on('click', '#common-passage-btn', function(){
+
+    $('#common-passage-form').css('display' , 'flex');
+
+});
+
+
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
