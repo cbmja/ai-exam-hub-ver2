@@ -1,11 +1,32 @@
 .login-form{
 
     width: 500px;
-    height: 300px;
+    min-height: 300px;
 
     background-color: #FFFFFF;
 
     border: 2px solid #FE6E2F;
     border-radius: 3px;
+
+}
+
+.login-text{
+    /* 텍스트 */
+    font-size: 13px;
+    color: #141517;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.login-modal-close-btn{
+    /* 텍스트 */
+    font-size: 20px;
+    color: #141517;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 
 }

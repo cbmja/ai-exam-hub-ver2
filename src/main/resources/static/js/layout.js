@@ -34,5 +34,37 @@ $(document).ready(function () {
     });
 
 
+    /* 로그인 모달 */
+    $(document).on('click', '#login-btn', function(){
+
+        $('#login-form').css('display' , 'flex');
+
+    });
+
+    /* 로그인 모달 */
+    $(document).on('click', '#login-btn2', function(){
+
+        $('#login-form-ar').css('display' , 'flex');
+        $('#join-form-ar').css('display' , 'none');
+
+    });
+
+    /* 회원가입 모달 */
+    $(document).on('click', '#join-btn', function(){
+
+        $('#login-form-ar').css('display' , 'none');
+
+        $('#join-form-ar').css('display' , 'flex');
+    });
+
+
+    /* 회원가입 , 로그인 모달 닫기 */
+    $(document).on('click', '.login-modal-close-btn', function(){
+
+        $('#login-form-ar').css('display' , 'flex');
+        $('#join-form-ar').css('display' , 'none');
+        $('#login-form').css('display' , 'none');
+    });
+
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
