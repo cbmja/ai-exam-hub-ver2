@@ -14,6 +14,10 @@
     font-style: normal;
 }
 
+.extract-pdf-ar-dragover{
+    background-color: #ffb494;
+}
+
 .extract-btn-ar{
     width: 749px;
 }
