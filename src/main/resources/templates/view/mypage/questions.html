@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{view/layout/layout}">
+<div layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/css/mypage/questions.css}">
+
+    <div class="repository-description c-c-s">
+
+        <div style="font-weight: 600; font-size: 20px;">
+            수능 국어 상급 문제 모음
+        </div>
+        <div style="height: 7px;"></div>
+        <div style="overflow-wrap: break-word; overflow-y: auto; max-height: 400px;">
+            내가 풀기 어려웠던 문제 모음asdfasdfsdafasdfsdadddddddddddddddd
+
+        </div>
+    </div>
+
+    <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
+    <div class="c-s-c">
+
+        <div style="height: 50px;" class="c-c"></div>
+        <input class="input-box" style="width: 800px; height: 37px;" placeholder="문제 찾기"/>
+        <div style="height: 15px;"></div>
+        <div class="r-s-c" style="width: 810px; height: 30px;">
+
+            <label class="mypage-top-btn hover-cursor">최근추가순
+                <input type="radio" name="sort">
+            </label>
+
+            <div style="width: 15px;"></div>
+
+            <label class="mypage-top-btn hover-cursor">최근작업순
+                <input type="radio" name="sort" checked>
+            </label>
+
+            <div class="mypage-top-btn hover-cursor" style="margin-left: auto;" id="add-question-btn">문제 추가하기</div>
+        </div>
+        <div style="height: 20px;"></div>
+
+    </div>
+    <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
+
+    <!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 -->
+    <div class="c-c-s question-element bd-b-grey2">
+
+        <div class="r-s-c">
+            <div style="font-weight: 600; font-size: 20px; color: #141517;">2025_수능_국어_화법과작문_홀수형_3번</div>
+        </div>
+
+        <div style="height:10px;"></div>
+
+        <div class="r-s-c">
+            <div style="font-weight: 400; font-size: 13px; color: #95979e;">생성일 : 2025-05-09/17:33</div>
+            <div style="font-weight: 400; font-size: 13px; color: #95979e; margin-left: auto;">마지막 작업 : 2025-05-11/18:39</div>
+        </div>
+
+
+    </div>
+    <!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 -->
+
+    <div style="height: 20px;"></div>
+
+    <!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 -->
+    <div class="r-c-c" style="width: 810px;">
+        <a class="page-btn"> << </a>
+        <div style="width: 3px;"></div>
+        <a class="page-btn"> < </a>
+
+        <div style="width: 10px;"></div>
+
+        <a class="page-btn"> 1 </a>
+        <div style="width: 3px;"></div>
+        <a class="page-btn page-btn-checked"> 2 </a>
+        <div style="width: 3px;"></div>
+        <a class="page-btn"> 3 </a>
+        <div style="width: 3px;"></div>
+        <a class="page-btn"> 4 </a>
+        <div style="width: 3px;"></div>
+        <a class="page-btn"> 5 </a>
+
+        <div style="width: 10px;"></div>
+
+        <a class="page-btn"> > </a>
+        <div style="width: 3px;"></div>
+        <a class="page-btn"> >> </a>
+
+
+    </div>
+    <!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 -->
+    <div style="height: 50px;"></div>
+
+
+    <script th:src="@{/js/mypage/questions.js}"></script>
+</div>
+</html>

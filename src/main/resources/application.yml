@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ai-exam-hub
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  mvc:
+    view:
+      suffix: .html
+  datasource:
+    url: jdbc:mysql://localhost:3306/examhub?allowPublicKeyRetrieval=true&useSSL=false
+    username: aiexamhub
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.aiexamhub.exam.dto
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+hash:
+  access_secret: adsfagsdreaasdvcaasdftgsdaasdfgas
+  refresh_secret: klcxjpioasnasdfkiohagirnweasdfgasd
+  default_secret: asdfhpovsjknjkqw
