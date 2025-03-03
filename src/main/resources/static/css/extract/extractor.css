@@ -1,0 +1,20 @@
+.extract-pdf-ar{
+
+    width: 745px;
+    height: 150px;
+
+    border: 2px solid #FE6E2F;
+
+    border-radius: 3px;
+
+    font-size: 20px;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.extract-btn-ar{
+    width: 749px;
+}
+

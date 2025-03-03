@@ -7,14 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TestingController {
 
 
-    @GetMapping("/questions")
+    @GetMapping("/question")
     public String questions(){
-        return "view/mypage/questions";
+        return "view/mypage/question";
     }
 
 
-    @GetMapping("/repositories")
+    @GetMapping("/repository")
     public String repositories(){
-        return "view/mypage/repositories";
+        return "view/mypage/repository";
+    }
+
+    @GetMapping("/extract")
+    public String extract(){
+        return "view/extract/extractor";
     }
 }
