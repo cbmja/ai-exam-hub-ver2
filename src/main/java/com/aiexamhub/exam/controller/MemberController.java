@@ -30,6 +30,7 @@ public class MemberController {
         return "view/extract/extractor";
     }
 
+    // ok
     @PostMapping("/join")
     @ResponseBody
     public String joinProc(@RequestBody Member form){
