@@ -12,7 +12,7 @@ spring:
     view:
       suffix: .html
   datasource:
-    url: jdbc:mysql://localhost:3306/examhub?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/aiexamhub?allowPublicKeyRetrieval=true&useSSL=false
     username: aiexamhub
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
