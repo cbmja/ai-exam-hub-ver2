@@ -233,6 +233,29 @@ body{
     cursor: pointer;
 }
 
+.blue-btn{
+    background-color: #2f32fe;
+    border-radius: 3px;
+    color: #FFFFFF;
+
+    /* 텍스트 */
+    font-size: 17px;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 15px;
+}
+.blue-btn:hover{
+    background-color: #1a1ddb;
+    cursor: pointer;
+}
+
 /* select box */
 
 /* select */
