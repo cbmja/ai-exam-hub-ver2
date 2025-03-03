@@ -4,11 +4,11 @@ $(document).ready(function () {
     /* 회원가입 진행 */
     $(document).on('click', '#join-submit', function(){
 
-        let email = $('#join-email').val();
-        let memberId = $('#join-id').val();
-        let memberPw = $('#join-pw').val();
-        let memberPw2 = $('#join-pw2').val();
-        let phone = $('#join-phone').val();
+        let email = $('#join-email').val().trim();
+        let memberId = $('#join-id').val().trim();
+        let memberPw = $('#join-pw').val().trim();
+        let memberPw2 = $('#join-pw2').val().trim();
+        let phone = $('#join-phone').val().trim();
 
         let isErr = false;
 
@@ -17,35 +17,27 @@ $(document).ready(function () {
             isErr = true;
         }
 
-        let PwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/;
-
-        if (!PwPattern.test(memberPw)) {
-            alert('비밀번호는 최소 7자리의 숫자 + 문자 + 특수문자로 구성되어야 합니다.');
+        if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/.test(memberPw)) {
+            alert('비밀번호는 최소 7자리의 숫자 + 영문 + 특수문자로 구성되어야 합니다.');
             isErr = true;
         }
 
-        let idPattern = /^[A-Za-z0-9]{5,}$/;
-
-        if(!idPattern.test(memberId)){
+        if(!/^[A-Za-z0-9]{5,}$/.test(memberId)){
             alert('아이디는 5자리 이상의 영문 + 숫자로 구성 되어야 합니다.');
             isErr = true;
         }
-
 
         if(memberPw && memberPw2 && memberPw !== memberPw2){
             alert('비밀번호 확인이 틀렸습니다.');
             isErr = true;
         }
 
-        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-        if (!emailPattern.test(email)) {
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
             alert('이메일 형식이 맞지 않습니다. ex) userId@domain.com');
             isErr = true;
         }
 
-        let phonePattern = /^010\d{8}$/;
-        if (!phonePattern.test(phone)) {
+        if (!/^010\d{8}$/.test(phone)) {
             alert('전화번호 형식이 맞지 않습니다. ex) 010XXXXXXXX');
             isErr = true;
         }
