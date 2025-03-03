@@ -31,7 +31,6 @@ $(document).ready(function () {
             $('#sidebar').css('display' , 'flex');
         }
 
-
     });
 
 
