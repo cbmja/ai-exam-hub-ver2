@@ -10,15 +10,52 @@ $(document).ready(function () {
         let memberPw2 = $('#join-pw2').val();
         let phone = $('#join-phone').val();
 
+        let isErr = false;
+
         if(!email || !memberId || !memberPw || !memberPw2 || !phone){
             alert('모두 입력해주세요.');
-            return;
+            isErr = true;
         }
+
+        let PwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/;
+
+        if (!PwPattern.test(memberPw)) {
+            alert('비밀번호는 최소 7자리의 숫자 + 문자 + 특수문자로 구성되어야 합니다.');
+            isErr = true;
+        }
+
+        let idPattern = /^[A-Za-z0-9]{5,}$/;
+
+        if(!idPattern.test(memberId)){
+            alert('아이디는 5자리 이상의 영문 + 숫자로 구성 되어야 합니다.');
+            isErr = true;
+        }
+
 
         if(memberPw && memberPw2 && memberPw !== memberPw2){
             alert('비밀번호 확인이 틀렸습니다.');
+            isErr = true;
+        }
+
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailPattern.test(email)) {
+            alert('이메일 형식이 맞지 않습니다. ex) userId@domain.com');
+            isErr = true;
+        }
+
+        let phonePattern = /^010\d{8}$/;
+        if (!phonePattern.test(phone)) {
+            alert('전화번호 형식이 맞지 않습니다. ex) 010XXXXXXXX');
+            isErr = true;
+        }
+
+        if(isErr){
+            isErr = false;
             return;
         }
+
+
 
         $.ajax({
             url: '/join', // 서버 URL
