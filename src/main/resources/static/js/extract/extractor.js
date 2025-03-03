@@ -1,6 +1,9 @@
 $(document).ready(function () {
 //SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
+const pdfjsLib = window['pdfjsLib'] || window['pdfjs-dist/build/pdf'];
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
 /* pdf 드래그 영역 */
 const dropArea = $('#extract-pdf-ar');
 
@@ -64,6 +67,79 @@ $(document).on('click', '#common-passage-btn', function(){
 
     $('#common-passage-form').css('display' , 'flex');
 
+});
+
+
+/* 공통 보기 생성 폼 열기 */
+$(document).on('click', '#extract-question-btn', function () {
+
+    if (!upLoadFile) {
+        alert('시험지를 업로드 하세요.');
+        return;
+    }
+
+    $('#extract-form').css('display', 'none');
+    $('#extract-exam').css('display', 'block').empty();
+
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(upLoadFile);
+
+    reader.onload = function () {
+        const arrayBuffer = reader.result;
+
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+
+        loadingTask.promise
+            .then(function (pdf) {
+                let totalPages = pdf.numPages;
+
+                function renderPage(pageNum) {
+                    pdf.getPage(pageNum).then(function (page) {
+                        const scale = 2.5; // 해상도 조절
+                        const viewport = page.getViewport({ scale });
+
+                        const aspectRatio = 0.8;
+
+                        // Canvas 생성
+                        const canvas = $('<canvas></canvas>')[0];
+                        const context = canvas.getContext('2d');
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height * aspectRatio;
+
+                        $(canvas).css({
+                            width: (viewport.width / scale) + "px",
+                            height: (viewport.height * aspectRatio / scale) + "px"
+                        });
+
+                        // PDF 페이지를 Canvas에 렌더링
+                        page.render({ canvasContext: context, viewport }).promise.then(function () {
+                            // Canvas를 이미지로 변환
+                            const img = $('<img>')
+                                .attr('src', canvas.toDataURL('image/png'))
+                                .css({
+                                    width: "100%",
+                                    "max-width": (viewport.width / scale) + "px",
+                                    "height": (viewport.height * aspectRatio / scale) + "px"
+                                });
+
+                            // `extract-exam` div에 이미지 추가
+                            $('#extract-exam').append(img);
+
+                            // 다음 페이지 처리
+                            if (pageNum < totalPages) {
+                                renderPage(pageNum + 1);
+                            }
+                        });
+                    });
+                }
+
+                // 첫 페이지부터 렌더링 시작
+                renderPage(1);
+            })
+            .catch(function (error) {
+                console.error('PDF 로드 중 오류 발생:', error);
+            });
+    }; // ← 여기에 `FileReader.onload` 닫는 `}` 추가됨
 });
 
 

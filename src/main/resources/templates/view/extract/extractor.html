@@ -4,6 +4,9 @@
       layout:decorate="~{view/layout/layout}">
 <div layout:fragment="content">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 -->
     <div id="extract-form" class="c-c-c">
 
         <div style="height: 50px;"></div>
@@ -56,15 +59,17 @@
 
         <div class="extract-btn-ar r-e-c">
 
-            <div class="blue-btn" id="common-passage-btn">지문 추가</div>
+            <div class="blue-btn" id="common-passage-btn">지문 등록</div>
             <div style="width: 10px;"></div>
-            <div class="black-btn">문제 추출</div>
+            <div class="black-btn" id="extract-question-btn">문제 추출</div>
 
         </div>
 
     </div>
+    <!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 --><!-- 시험 정보 입력 폼 -->
 
-    <div id="extract-exam">
+
+    <div id="extract-exam" style="display: none; width: 100%; height: 100%;">
 
 
     </div>
