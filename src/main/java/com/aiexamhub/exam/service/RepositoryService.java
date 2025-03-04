@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +21,9 @@ public class RepositoryService {
 
 
     @Transactional
-    public List<Repository> getRepositories(int page , String search , String searchType , String sortType , String sort){
+    public Map<String , Object> getRepositories(int page , String search , String searchType , String sortType , String sort){
+
+        Map<String , Object> res = new HashMap<>();
 
         Page form = new Page();
         form.setSearchType(searchType);
@@ -39,7 +43,10 @@ public class RepositoryService {
             list = new ArrayList<>();
         }
 
-        return list;
+        res.put("list" , list);
+        res.put("page" , param);
+
+        return res;
     }
 
 }

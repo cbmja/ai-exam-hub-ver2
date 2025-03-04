@@ -18,5 +18,13 @@ $(document).ready(function () {
     });
 
 
+    /* 검색버튼 */
+    $(document).on('click', '#repository-search-btn', function(){
+
+        let search = $('#repository-search-input').val();
+
+        window.location.href='/member/repository?page=0&search='+search;
+    });
+
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });

@@ -35,10 +35,15 @@
 <div class="c-s-c">
 
     <div style="height: 50px;"></div>
-    <input class="input-box" style="width: 800px; height: 37px;" placeholder="저장소 찾기"/>
-    <div style="height: 15px;"></div>
-    <div class="r-s-c" style="width: 810px; height: 30px;">
+    <div class="r-c-c" style="width: 815px; height: 37px;">
+        <input class="input-box" style="width: 700px; height: 100%;" id="repository-search-input" placeholder="저장소 찾기" th:value="${page.search}"/>
+        <div style="width: 10px;"></div>
+        <div style="width: 105px; height: 37px; padding: 0;" class="black-btn" id="repository-search-btn">찾기</div>
+    </div>
 
+    <div style="height: 5px;"></div>
+    <div class="r-s-c" style="width: 810px; height: 30px;">
+<!--
         <label class="mypage-top-btn hover-cursor">·&nbsp;&nbsp;생성일자순
             <input type="radio" name="sort">
         </label>
@@ -48,29 +53,30 @@
         <label class="mypage-top-btn hover-cursor">·&nbsp;&nbsp;최근작업순
             <input type="radio" name="sort" checked>
         </label>
+-->
 
-        <div class="mypage-top-btn hover-cursor" style="margin-left: auto;" id="create-repository-btn">·&nbsp;&nbsp;새 저장소 만들기</div>
+        <div class="mypage-top-btn hover-cursor" id="create-repository-btn">·&nbsp;&nbsp;새 저장소 만들기</div>
     </div>
-    <div style="height: 20px;"></div>
+    <div style="height: 5px;"></div>
 
 </div>
 <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
 
 <!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 -->
-<div class="c-c-s repository-element bd-b-grey2">
+<div class="c-c-s repository-element bd-b-grey2" th:each="element : ${list}" th:object="${element}">
 
     <div class="r-s-c">
-        <div style="font-weight: 600; font-size: 20px; color: #141517;">수능 국어 상급 문제 모음</div>
-        <div style="font-weight: 500; font-size: 20px; color: #141517; margin-left: auto;">[ 14 ]</div>
+        <div style="font-weight: 600; font-size: 20px; color: #141517;" th:text="*{repositoryName}"></div>
+        <div style="font-weight: 500; font-size: 20px; color: #141517; margin-left: auto;">[ 준비중 ]</div>
     </div>
 
     <div style="height:5px;"></div>
-    <div style="font-weight: 400; font-size: 15px; color: #141517;">수능 국어 오답률 40% 이상 문제 모음 / 홀수형 기준</div>
+    <div style="font-weight: 400; font-size: 15px; color: #141517;" th:text="*{description}">수능 국어 오답률 40% 이상 문제 모음 / 홀수형 기준</div>
     <div style="height:5px;"></div>
 
     <div class="r-s-c">
-        <div style="font-weight: 400; font-size: 13px; color: #95979e;">생성일 : 2025-05-09/17:33</div>
-        <div style="font-weight: 400; font-size: 13px; color: #95979e; margin-left: auto;">마지막 작업 : 2025-05-11/18:39</div>
+        <div style="font-weight: 400; font-size: 13px; color: #95979e;" th:text="*{'생성일 : '+ createdAt}"></div>
+        <div style="font-weight: 400; font-size: 13px; color: #95979e; margin-left: auto;" th:text="*{'마지막 작업 : '+ updatedAt}"></div>
     </div>
 
 
@@ -81,27 +87,20 @@
 
 <!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 -->
 <div class="r-c-c" style="width: 810px;">
-    <a class="page-btn"> << </a>
+    <a class="page-btn" th:href="@{/member/repository(page=${page.startPage}, search=${page.search} , searchType=${page.searchType} , sortType=${page.sortType} , sort=${page.sort})}"> << </a>
     <div style="width: 3px;"></div>
-    <a class="page-btn"> < </a>
+    <a class="page-btn" th:href="@{/member/repository(page=${page.page -1}, search=${page.search})}"> < </a>
 
-    <div style="width: 10px;"></div>
+    <div style="width: 7px;"></div>
 
-    <a class="page-btn"> 1 </a>
-    <div style="width: 3px;"></div>
-    <a class="page-btn page-btn-checked"> 2 </a>
-    <div style="width: 3px;"></div>
-    <a class="page-btn"> 3 </a>
-    <div style="width: 3px;"></div>
-    <a class="page-btn"> 4 </a>
-    <div style="width: 3px;"></div>
-    <a class="page-btn"> 5 </a>
+    <a th:each="num : ${page.pages}" style="margin-left: 2px; margin-right: 2px;" th:class="${num == page.page} ? 'page-btn page-btn-checked':'page-btn'" th:text="${num}" th:href="@{/member/repository(page=${num}, search=${page.search} , searchType=${page.searchType} , sortType=${page.sortType} , sort=${page.sort})}">
+    </a>
 
-    <div style="width: 10px;"></div>
+    <div style="width: 7px;"></div>
 
-    <a class="page-btn"> > </a>
+    <a class="page-btn" th:href="@{/member/repository(page=${page.page +1}, search=${page.search} , searchType=${page.searchType} , sortType=${page.sortType} , sort=${page.sort})}"> > </a>
     <div style="width: 3px;"></div>
-    <a class="page-btn"> >> </a>
+    <a class="page-btn" th:href="@{/member/repository(page=${page.endPage}, search=${page.search} , searchType=${page.searchType} , sortType=${page.sortType} , sort=${page.sort})}"> >> </a>
 
 
 </div>

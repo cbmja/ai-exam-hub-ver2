@@ -1,6 +1,7 @@
 package com.aiexamhub.exam.controller;
 
 import com.aiexamhub.exam.dto.Member;
+import com.aiexamhub.exam.dto.Page;
 import com.aiexamhub.exam.dto.Repository;
 import com.aiexamhub.exam.service.LoginService;
 import com.aiexamhub.exam.service.RepositoryService;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -90,10 +92,15 @@ public class MemberController {
 
             String memberCode = (String)(req.getAttribute("memberCode"));
 
-            List<Repository> list = repositoryService.getRepositories(page , search , searchType ,sortType ,sort);
+            Map<String , Object> res = repositoryService.getRepositories(page , search , searchType ,sortType ,sort);
+
+            List<Repository> list = (List<Repository>)(res.get("list"));
+            Page pageData = (Page)(res.get("page"));
 
             model.addAttribute("list" , list);
             model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+            model.addAttribute("page" , pageData);
+
 
             return "view/member/repository";
         }catch (Exception e){
