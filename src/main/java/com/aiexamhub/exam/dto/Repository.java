@@ -12,4 +12,6 @@ public class Repository {
     private String memberCode;
     private String description;
 
+    private int questionCnt;
+
 }

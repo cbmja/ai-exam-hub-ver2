@@ -63,11 +63,11 @@
 <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
 
 <!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 -->
-<div class="c-c-s repository-element bd-b-grey2" th:each="element : ${list}" th:object="${element}">
+<div class="c-c-s repository-element bd-b-grey2" th:each="element : ${list}" th:object="${element}" th:data-repositorycode="*{repositoryCode}">
 
     <div class="r-s-c">
         <div style="font-weight: 600; font-size: 20px; color: #141517;" th:text="*{repositoryName}"></div>
-        <div style="font-weight: 500; font-size: 20px; color: #141517; margin-left: auto;">[ 준비중 ]</div>
+        <div style="font-weight: 500; font-size: 20px; color: #141517; margin-left: auto;" th:text="*{'[' + questionCnt + ']'}"></div>
     </div>
 
     <div style="height:5px;"></div>

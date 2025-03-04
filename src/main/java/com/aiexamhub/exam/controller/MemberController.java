@@ -113,6 +113,32 @@ public class MemberController {
 
     }
 
+    // ok
+    // 저장소 상세
+    @GetMapping("/repository/{repositoryCode}")
+    public String repositoryDetail(ServletRequest servletRequest , Model model , @PathVariable(name = "repositoryCode" , required = true) String repositoryCode){
+
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+
+        model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+
+
+
+
+
+
+        return null;
+
+
+
+    }
+
+
+
+
+
+
+
     @GetMapping("/question")
     public String question(ServletRequest servletRequest, Model model){
         HttpServletRequest req = (HttpServletRequest) servletRequest;

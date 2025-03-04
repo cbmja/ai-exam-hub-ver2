@@ -85,7 +85,7 @@ public class LoginFilter implements Filter {
             httpResponse.sendRedirect("/index");
             return;
         }
-        System.out.println("4-can logout");
+        System.out.println("4-is login");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

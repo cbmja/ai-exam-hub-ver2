@@ -5,11 +5,17 @@
 <mapper namespace="com.aiexamhub.exam.mapper.RepositoryMapper">
 
     <select id="getRepositories" parameterType="Page" resultType="Repository">
-        SELECT * FROM repository
-        WHERE ${searchType} LIKE concat('%',#{search},'%')
+        SELECT
+        r.*,
+        COUNT(q.question_code) AS question_cnt
+        FROM repository r
+        LEFT JOIN question q ON r.repository_code = q.repository_code
+        WHERE ${searchType} LIKE concat('%', #{search}, '%')
+        GROUP BY r.repository_code
         ORDER BY ${sortType} ${sort}
         LIMIT #{startNum}, #{pageElement};
     </select>
+
 
     <select id="getTotal" parameterType="Page" resultType="int">
         SELECT count(*) FROM repository

@@ -26,5 +26,14 @@ $(document).ready(function () {
         window.location.href='/member/repository?page=0&search='+search;
     });
 
+
+    /* 저장소 클릭 */
+    $(document).on('click', '.repository-element', function(){
+
+        let repositoryCode = $(this).data('repositorycode');
+
+        window.location.href='/member/repository/'+repositoryCode;
+    });
+
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
