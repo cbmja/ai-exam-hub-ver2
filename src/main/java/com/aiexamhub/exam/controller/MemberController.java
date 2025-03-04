@@ -55,6 +55,8 @@ public class MemberController {
         return res;
     }
 
+    // ok
+    // 로그인
     @GetMapping("/logout")
     public String logout(HttpServletResponse response , Model model){
 

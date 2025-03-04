@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
+    // ok
+    // 메인
     @GetMapping("/index")
     public String repository(ServletRequest servletRequest, Model model){
         HttpServletRequest req = (HttpServletRequest) servletRequest;
