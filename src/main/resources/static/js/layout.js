@@ -79,5 +79,13 @@ $(document).ready(function () {
         $('#login-form').css('display' , 'none');
     });
 
+    // 로그아웃
+    $(document).on('click', '#logout-btn', function(){
+
+
+        window.location.href='/member/logout';
+
+    });
+
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });

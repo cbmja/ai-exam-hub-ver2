@@ -96,5 +96,49 @@ $(document).ready(function () {
     });
 
 
+    /* 로그인 */
+    $(document).on('click', '#login-submit', function(){
+
+
+        let memberId = $('#login-id').val().trim();
+        let memberPw = $('#login-pw').val().trim();
+
+        if(!memberId || !memberPw){
+            alert('아이디와 비밀번호를 모두 입력해주세요.');
+            return;
+        }
+
+
+        $.ajax({
+            url: '/member/login', // 서버 URL
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                memberId : memberId,
+                memberPw : memberPw
+            }),
+            success: function(response) {
+
+                console.log(response);
+                switch (response){
+                    case 'login success':
+                        $('#login-id').val("");
+                        $('#login-pw').val("");
+                        window.location.href='/index';
+
+                        break;
+                    case 'server err': alert('서버 에러입니다.'); break;
+                    case 'wrong pw': alert('비밀번호가 일치하지 않습니다.'); break;
+                    case 'wrong id': alert('존재하지 않는 아이디입니다.'); break;
+                }
+
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('서버 에러입니다. 잠시 후 다시 시도해주세요.');
+            }
+        });
+
+    });
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });

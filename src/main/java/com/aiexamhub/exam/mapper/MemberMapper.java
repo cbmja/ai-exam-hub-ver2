@@ -13,5 +13,7 @@ public interface MemberMapper {
 
     int countByPhone(String phone);
 
+    Member selectByMemberId(String memberId);
+
 
 }

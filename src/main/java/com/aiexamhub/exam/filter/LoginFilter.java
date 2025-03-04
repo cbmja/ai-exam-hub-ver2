@@ -28,7 +28,7 @@ public class LoginFilter implements Filter {
         String idCookie = "";
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("idCookie".equals(cookie.getName())) {
+                if ("mCode".equals(cookie.getName())) {
                     idCookie = cookie.getValue(); // 원하는 쿠키 반환
                 }
             }

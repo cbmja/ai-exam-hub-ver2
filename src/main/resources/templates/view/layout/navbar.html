@@ -17,7 +17,8 @@
     <div style="width: 20px;"></div>
     <div class="nav-element" style="color: #FE6E2F;">|</div>
     <div style="width: 20px;"></div>
-    <div class="nav-element hover-green" id="login-btn">로그인</div>
+    <div class="nav-element hover-green" id="login-btn" th:if="${!isLogin}">로그인</div>
+    <div class="nav-element hover-green" id="logout-btn" th:if="${isLogin}" href>로그아웃</div>
 
 
     <div style="width: 50px;"></div>

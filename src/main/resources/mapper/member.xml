@@ -35,4 +35,8 @@
         SELECT count(*) FROM member WHERE phone = #{phone};
     </select>
 
+    <select id="selectByMemberId" parameterType="String" resultType="Member">
+        SELECT * FROM member WHERE member_id = #{memberId};
+    </select>
+
 </mapper>
