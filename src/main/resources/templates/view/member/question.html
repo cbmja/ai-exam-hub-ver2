@@ -16,7 +16,7 @@
 
     <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
     <div class="c-s-c">
-        <h1 th:text="${repository.repositoryName}"></h1>
+        <h1 th:text="${repository.repositoryName}" style="border-bottom: 3px solid #FE6E2F;"></h1>
 <!--
         <div style="height: 50px;" class="c-c"></div>
         <input class="input-box" style="width: 800px; height: 37px;" placeholder="문제 찾기"/>
@@ -42,27 +42,29 @@
     <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
 
     <!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 -->
-    <div class="c-c-s question-element bd-b-grey2" th:each="question : ${list}" th:object="${question}">
+    <div  style="min-height: 300px;" class="c-s-c">
+        <div class="c-c-s question-element bd-b-grey2" th:each="question : ${list}" th:object="${question}">
 
-        <div class="r-s-c">
-            <div style="font-weight: 600; font-size: 20px; color: #141517;" th:text="*{examYear +'년도_'+ examMonth +'월_'+ ExamCateName +'_'+ subjectName +'_'+ subjectDetailName +'_'+ examTypeName +'_'+ questionNo+'번'}"></div>
+            <div class="r-s-c">
+                <div style="font-weight: 600; font-size: 20px; color: #141517;" th:text="*{examYear +'년도_'+ examMonth +'월_'+ ExamCateName +'_'+ subjectName +'_'+ subjectDetailName +'_'+ examTypeName +'_'+ questionNo+'번'}"></div>
+            </div>
+
+            <div style="height:10px;"></div>
+
+            <div class="r-s-c">
+                <div style="font-weight: 400; font-size: 13px; color: #95979e;" th:text="*{'생성일 : '+createdAt}"></div>
+                <div style="font-weight: 400; font-size: 13px; color: #95979e; margin-left: auto;" th:text="*{'마지막 작업 : '+updatedAt}"></div>
+            </div>
+
         </div>
-
-        <div style="height:10px;"></div>
-
-        <div class="r-s-c">
-            <div style="font-weight: 400; font-size: 13px; color: #95979e;" th:text="*{'생성일 : '+createdAt}"></div>
-            <div style="font-weight: 400; font-size: 13px; color: #95979e; margin-left: auto;" th:text="*{'마지막 작업 : '+updatedAt}"></div>
-        </div>
-
-
     </div>
+
     <!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 -->
 
     <div style="height: 20px;"></div>
 
     <!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 -->
-    <div class="r-c-c" style="width: 810px;">
+    <!--<div class="r-c-c" style="width: 810px;">
         <a class="page-btn"> << </a>
         <div style="width: 3px;"></div>
         <a class="page-btn"> < </a>
@@ -86,7 +88,7 @@
         <a class="page-btn"> >> </a>
 
 
-    </div>
+    </div>-->
     <!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 --><!-- 페이지 버튼 -->
     <div style="height: 50px;"></div>
 
