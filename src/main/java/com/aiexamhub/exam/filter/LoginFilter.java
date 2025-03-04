@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -51,20 +53,30 @@ public class LoginFilter implements Filter {
         if (isLogin) {
             idCookie = cipherUtil.decrypt(idCookie);
         }
+
+        if(idCookie.equals("err")){
+            httpResponse.sendRedirect("/index");
+            return;
+        }
+
         servletRequest.setAttribute("memberCode", idCookie);
 
         // 로그인 없이 접근 가능한 API 목록
-        Set<String> logOutPath = new HashSet<>();
+        List<String> logOutPath = new ArrayList<>();
         logOutPath.add("/index");
         logOutPath.add("/member/join");
         logOutPath.add("/member/login");
         logOutPath.add("/member/logout");
 
         // 로그아웃 상태에서 접근 가능한 경로 확인
-        if (logOutPath.contains(reqUri)) {
-            System.out.println("2-can logout");
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
+        for (String path : logOutPath) {
+
+            if(reqUri.contains(path)){
+                System.out.println("2-can logout");
+                filterChain.doFilter(servletRequest, servletResponse);
+                return;
+            }
+
         }
 
         // 로그인 상태가 아니라면 `/index`로 리다이렉트

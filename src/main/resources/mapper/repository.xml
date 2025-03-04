@@ -4,5 +4,16 @@
 
 <mapper namespace="com.aiexamhub.exam.mapper.RepositoryMapper">
 
+    <select id="getRepositories" parameterType="Page" resultType="Repository">
+        SELECT * FROM repository
+        WHERE ${searchType} LIKE concat('%',#{search},'%')
+        ORDER BY ${sortType} ${sort};
+    </select>
+
+    <select id="getTotal" parameterType="Page" resultType="int">
+        SELECT count(*) FROM repository
+        WHERE ${searchType} LIKE concat('%',#{search},'%');
+    </select>
+
 
 </mapper>

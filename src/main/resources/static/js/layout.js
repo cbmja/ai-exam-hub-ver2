@@ -87,5 +87,12 @@ $(document).ready(function () {
 
     });
 
+    // 나의 저장소
+    $(document).on('click', '#mypage-btn', function(){
+
+        window.location.href='/member/repository';
+
+    });
+
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });

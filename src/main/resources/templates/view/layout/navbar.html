@@ -5,7 +5,7 @@
     <div class="nav-element" style="font-size: 25px; margin-right: auto; font-weight: 600;" id="select-exam-info"></div>
 
 
-    <div class="nav-element hover-green checked-green">나의 저장소 관리</div>
+    <div class="nav-element hover-green checked-green" id="mypage-btn">나의 저장소 관리</div>
     <div style="width: 20px;"></div>
     <div class="nav-element" style="color: #FE6E2F;">|</div>
     <div style="width: 20px;"></div>
@@ -19,6 +19,8 @@
     <div style="width: 20px;"></div>
     <div class="nav-element hover-green" id="login-btn" th:if="${!isLogin}">로그인</div>
     <div class="nav-element hover-green" id="logout-btn" th:if="${isLogin}" href>로그아웃</div>
+
+    <input type="hidden" id="is-login" th:value="${isLogin}">
 
 
     <div style="width: 50px;"></div>

@@ -1,7 +1,9 @@
 package com.aiexamhub.exam.controller;
 
 import com.aiexamhub.exam.dto.Member;
+import com.aiexamhub.exam.dto.Repository;
 import com.aiexamhub.exam.service.LoginService;
+import com.aiexamhub.exam.service.RepositoryService;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,12 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/member")
 public class MemberController {
 
     private final LoginService loginService;
+    private final RepositoryService repositoryService;
 
 
     // ok
@@ -71,13 +76,34 @@ public class MemberController {
         return "redirect:/index";
     }
     
-
+    // ok
+    // 나의 저장소
     @GetMapping("/repository")
-    public String repository(ServletRequest servletRequest, Model model){
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+    public String repository(ServletRequest servletRequest, Model model , @RequestParam(name = "page" , defaultValue = "0") int page ,
+                                                                         @RequestParam(name = "search" , defaultValue = "") String search ,
+                                                                         @RequestParam(name = "searchType" , defaultValue = "repository_name") String searchType ,
+                                                                         @RequestParam(name = "sortType" , defaultValue = "created_at") String sortType ,
+                                                                         @RequestParam(name = "sort" , defaultValue = "DESC") String sort){
 
-        return "view/member/repository";
+        try {
+            HttpServletRequest req = (HttpServletRequest) servletRequest;
+
+            String memberCode = (String)(req.getAttribute("memberCode"));
+
+            List<Repository> list = repositoryService.getRepositories(page , search , searchType ,sortType ,sort);
+
+            model.addAttribute("list" , list);
+            model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+
+            return "view/member/repository";
+        }catch (Exception e){
+            e.printStackTrace();
+
+            return "view/err";
+        }
+
+
+
     }
 
     @GetMapping("/question")
