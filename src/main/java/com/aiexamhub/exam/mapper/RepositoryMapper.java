@@ -13,4 +13,6 @@ public interface RepositoryMapper {
 
     Repository selectByRepositoryCode(String repositoryCode);
 
+    int save(Repository form);
+
 }

@@ -6,6 +6,7 @@ import com.aiexamhub.exam.dto.Question;
 import com.aiexamhub.exam.dto.Repository;
 import com.aiexamhub.exam.service.LoginService;
 import com.aiexamhub.exam.service.RepositoryService;
+import com.aiexamhub.exam.util.CipherUtil;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class MemberController {
     private final LoginService loginService;
     private final RepositoryService repositoryService;
     private final SqlSessionTemplate sql;
+    private final CipherUtil cipherUtil;
 
 
     // ok
@@ -174,7 +176,33 @@ public class MemberController {
     }
 
 
+    // ok
+    // 저장소 생성
+    @PostMapping("/repository/create")
+    @ResponseBody
+    public String createRepository(ServletRequest servletRequest , @RequestBody Repository form){
+        String res = "success";
 
+        try{
+            HttpServletRequest req = (HttpServletRequest) servletRequest;
+
+            form.setRepositoryCode(cipherUtil.createCode());
+
+            String memberCode = (String)(req.getAttribute("memberCode"));
+
+            form.setMemberCode(memberCode);
+
+            if(sql.insert("com.aiexamhub.exam.mapper.RepositoryMapper.save" , form) <= 0){
+                return "DB err";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            res = "server err";
+        }
+
+
+        return res;
+    }
 
 
 

@@ -27,5 +27,19 @@
         WHERE repository_code = #{repositoryCode};
     </select>
 
+    <insert id="save" parameterType="Repository">
+        INSERT INTO repository (
+            repository_code,
+            repository_name,
+            member_code,
+            description
+        )VALUES(
+            #{repositoryCode},
+            #{repositoryName},
+            #{memberCode},
+            #{description}
+        );
+    </insert>
+
 
 </mapper>

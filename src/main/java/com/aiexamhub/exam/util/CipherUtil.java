@@ -5,7 +5,10 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Random;
 
 @Component
 public class CipherUtil {
@@ -52,6 +55,23 @@ public class CipherUtil {
         }
 
         return result;
+    }
+
+
+    public String createCode(){
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSSSSSSSS");
+        Random random = new Random();
+        char r1 = (char) (random.nextBoolean() ? random.nextInt(26) + 'A' : random.nextInt(26) + 'a');
+        char r2 = (char) (random.nextBoolean() ? random.nextInt(26) + 'A' : random.nextInt(26) + 'a');
+        char r3 = (char) (random.nextBoolean() ? random.nextInt(26) + 'A' : random.nextInt(26) + 'a');
+
+        int i1 = random.nextInt(10);
+        int i2 = random.nextInt(10);
+        int i3 = random.nextInt(10);
+
+        return String.valueOf(r1) + i1 + String.valueOf(r2) + i2 + String.valueOf(r3) + i3 +"_" + now.format(formatter);
     }
 
 }

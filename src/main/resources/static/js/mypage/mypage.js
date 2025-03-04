@@ -35,5 +35,43 @@ $(document).ready(function () {
         window.location.href='/member/repository/'+repositoryCode;
     });
 
+
+
+    /* 저장소 생성 저장 */
+    $(document).on('click', '#repo-form-submit', function(){
+
+        let repositoryName = $('#repo-form-name').val();
+        let description = $('#repo-form-description').val();
+
+        $.ajax({
+            url: '/member/repository/create',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                repositoryName : repositoryName,
+                description : description
+            }),
+            success: function(response) {
+
+
+                switch (response){
+
+                    case 'DB err': alert('서버 에러입니다.'); break;
+                    case 'server err': alert('DB 에러입니다.'); break;
+                    case 'success': alert('생성완료. 새로고침 해주세요.');
+                        $('#repo-form-name').val("");
+                        $('#repo-form-description').val("");
+                    break;
+                }
+
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('서버 에러입니다. 잠시 후 다시 시도해주세요.');
+            }
+        });
+
+
+    });
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
