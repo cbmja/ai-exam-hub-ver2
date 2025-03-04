@@ -204,12 +204,12 @@ public class MemberController {
         return res;
     }
 
-
+    // ok
+    // 저장소 수정
     @PostMapping("/repository/edit")
     @ResponseBody
     public String editRepository(ServletRequest servletRequest , @RequestBody Repository form){
-
-
+        
         try {
             return repositoryService.edit(form , servletRequest);
         }catch (Exception e){
@@ -220,7 +220,7 @@ public class MemberController {
     }
 
 
-
+/*
     @GetMapping("/question")
     public String question(ServletRequest servletRequest, Model model){
         HttpServletRequest req = (HttpServletRequest) servletRequest;
@@ -228,6 +228,7 @@ public class MemberController {
 
         return "view/member/question";
     }
+*/
 
     @GetMapping("/extract")
     public String extract(ServletRequest servletRequest, Model model){
