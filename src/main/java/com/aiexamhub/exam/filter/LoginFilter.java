@@ -28,7 +28,7 @@ public class LoginFilter implements Filter {
         System.out.println(reqUri+"==============================================");
 
         if (reqUri.endsWith(".js") || reqUri.endsWith(".css")) {
-            System.out.println("1==============================================");
+            System.out.println("1-static");
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -46,6 +46,7 @@ public class LoginFilter implements Filter {
 
         Boolean isLogin = !idCookie.isEmpty();
         servletRequest.setAttribute("isLogin", isLogin);
+        System.out.println("isLogin : "+isLogin);
 
         if (isLogin) {
             idCookie = cipherUtil.decrypt(idCookie);
@@ -61,18 +62,18 @@ public class LoginFilter implements Filter {
 
         // 로그아웃 상태에서 접근 가능한 경로 확인
         if (logOutPath.contains(reqUri)) {
-            System.out.println("2==============================================");
+            System.out.println("2-can logout");
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
 
         // 로그인 상태가 아니라면 `/index`로 리다이렉트
         if (!isLogin) {
-            System.out.println("3==============================================");
+            System.out.println("3-need login -> redirect /index");
             httpResponse.sendRedirect("/index");
             return;
         }
-        System.out.println("4==============================================");
+        System.out.println("4-can logout");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }
