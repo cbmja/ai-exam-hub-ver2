@@ -4,16 +4,34 @@ import com.aiexamhub.exam.dto.Member;
 import com.aiexamhub.exam.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
     private final LoginService loginService;
+
+
+    // ok
+    // 회원가입
+    @PostMapping("/join")
+    @ResponseBody
+    public String joinProc(@RequestBody Member form){
+
+        String res = "";
+
+        try{
+            res = loginService.join(form);
+        }catch (Exception e){
+            e.printStackTrace();
+            res = "server err";
+        }
+
+        return res;
+    }
+    
 
     @GetMapping("/repository")
     public String repository(){
@@ -30,22 +48,7 @@ public class MemberController {
         return "view/extract/extractor";
     }
 
-    // ok
-    @PostMapping("/join")
-    @ResponseBody
-    public String joinProc(@RequestBody Member form){
 
-        String res = "";
-
-        try{
-            res = loginService.join(form);
-        }catch (Exception e){
-            e.printStackTrace();
-            res = "server err";
-        }
-
-        return res;
-    }
 
 
 

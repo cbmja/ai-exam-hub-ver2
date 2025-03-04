@@ -50,7 +50,7 @@ $(document).ready(function () {
 
 
         $.ajax({
-            url: '/join', // 서버 URL
+            url: '/member/join', // 서버 URL
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
