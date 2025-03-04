@@ -15,4 +15,6 @@ public interface RepositoryMapper {
 
     int save(Repository form);
 
+    int update(Repository form);
+
 }

@@ -41,5 +41,14 @@
         );
     </insert>
 
+    <update id="update" parameterType="Repository">
+        UPDATE repository
+        SET
+        repository_name = #{repositoryName},
+        description = #{description},
+        updated_at = NOW()
+        WHERE repository_code = #{repositoryCode};
+    </update>
+
 
 </mapper>

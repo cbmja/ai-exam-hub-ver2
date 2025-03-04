@@ -5,17 +5,17 @@
 <div layout:fragment="content">
 
     <div class="repository-description c-c-c">
-
-        <input class="repo-description-ibox" style="font-weight: 600; font-size: 20px;" th:value="${repository.repositoryName}"/>
+        <input type="hidden" th:value="${repository.repositoryCode}" id="repository-code">
+        <input class="repo-description-ibox" style="font-weight: 600; font-size: 20px;" th:value="${repository.repositoryName}" id="repository-title"/>
         <div style="height: 7px;"></div>
-        <textarea class="repo-description-tbox" th:text="${repository.description}"></textarea>
+        <textarea class="repo-description-tbox" th:text="${repository.description}" id="repository-description"></textarea>
         <div style="height: 7px;"></div>
-        <div class="black-btn" style="margin-left: auto; padding: 3px 20px !important;">수정</div>
+        <div class="black-btn" style="margin-left: auto; padding: 3px 20px !important;" id="repository-edit-btn">수정</div>
     </div>
 
     <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
     <div class="c-s-c">
-        <h1 th:text="${repository.repositoryName}" style="border-bottom: 3px solid #FE6E2F;"></h1>
+        <h1 id="repo-detail-title" th:text="${repository.repositoryName}" style="border-bottom: 3px solid #FE6E2F;"></h1>
 <!--
         <div style="height: 50px;" class="c-c"></div>
         <input class="input-box" style="width: 800px; height: 37px;" placeholder="문제 찾기"/>

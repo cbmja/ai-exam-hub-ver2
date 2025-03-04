@@ -3,6 +3,8 @@ package com.aiexamhub.exam.service;
 import com.aiexamhub.exam.dto.Member;
 import com.aiexamhub.exam.dto.Page;
 import com.aiexamhub.exam.dto.Repository;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,27 @@ public class RepositoryService {
         res.put("page" , param);
 
         return res;
+    }
+
+    @Transactional
+    public String edit(Repository form , ServletRequest servletRequest){
+
+
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        String memberCode = (String)(req.getAttribute("memberCode"));
+
+        Repository repository = sql.selectOne("com.aiexamhub.exam.mapper.RepositoryMapper.selectByRepositoryCode" , form.getRepositoryCode());
+
+        if(!repository.getMemberCode().equals(memberCode)){
+            return "diff";
+        }
+
+        if(sql.update("com.aiexamhub.exam.mapper.RepositoryMapper.update" , form) <= 0){
+            return "DB err";
+        }
+
+        return "success";
+
     }
 
 }

@@ -73,5 +73,49 @@ $(document).ready(function () {
 
 
     });
+
+
+
+    /* 저장소 수정 저장 */
+    $(document).on('click', '#repository-edit-btn', function(){
+
+        let repositoryName = $('#repository-title').val();
+        let description = $('#repository-description').val();
+        let repositoryCode = $('#repository-code').val();
+
+        $.ajax({
+            url: '/member/repository/edit',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                repositoryName : repositoryName,
+                description : description,
+                repositoryCode : repositoryCode
+            }),
+            success: function(response) {
+
+
+                switch (response){
+
+                    case 'DB err': alert('DB 에러입니다.'); break;
+                    case 'diff': alert('회원님의 저장소가 아닙니다.'); break;
+                    case 'server err': alert('서버 에러입니다.'); break;
+                    case 'success': alert('수정 완료.');
+
+                    $('#repo-detail-title').empty().append(repositoryName);
+                    break;
+                }
+
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('서버 에러입니다. 잠시 후 다시 시도해주세요.');
+            }
+        });
+
+
+    });
+
+
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });

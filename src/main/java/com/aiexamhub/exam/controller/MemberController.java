@@ -205,6 +205,20 @@ public class MemberController {
     }
 
 
+    @PostMapping("/repository/edit")
+    @ResponseBody
+    public String editRepository(ServletRequest servletRequest , @RequestBody Repository form){
+
+
+        try {
+            return repositoryService.edit(form , servletRequest);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "server err";
+        }
+
+    }
+
 
 
     @GetMapping("/question")
