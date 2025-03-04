@@ -27,4 +27,11 @@ public class Question {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+
+    private String commonPassageContent;
+    private String subjectDetailName = "";
+    private String ExamCateName;
+    private String subjectName;
+    private String examOrgName;
+    private String examTypeName;
 }

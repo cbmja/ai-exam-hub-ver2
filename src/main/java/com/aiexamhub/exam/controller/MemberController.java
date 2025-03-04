@@ -2,6 +2,7 @@ package com.aiexamhub.exam.controller;
 
 import com.aiexamhub.exam.dto.Member;
 import com.aiexamhub.exam.dto.Page;
+import com.aiexamhub.exam.dto.Question;
 import com.aiexamhub.exam.dto.Repository;
 import com.aiexamhub.exam.service.LoginService;
 import com.aiexamhub.exam.service.RepositoryService;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ public class MemberController {
 
     private final LoginService loginService;
     private final RepositoryService repositoryService;
+    private final SqlSessionTemplate sql;
 
 
     // ok
@@ -118,16 +121,53 @@ public class MemberController {
     @GetMapping("/repository/{repositoryCode}")
     public String repositoryDetail(ServletRequest servletRequest , Model model , @PathVariable(name = "repositoryCode" , required = true) String repositoryCode){
 
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
 
-        model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+        try{
+
+            HttpServletRequest req = (HttpServletRequest) servletRequest;
+
+            model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+
+            Page page = new Page();
+            page.setSearch(repositoryCode);
+
+            List<Question> list = sql.selectList("com.aiexamhub.exam.mapper.QuestionMapper.selectByRepositoryCode" , page);
+
+            Repository repository = sql.selectOne("com.aiexamhub.exam.mapper.RepositoryMapper.selectByRepositoryCode" , repositoryCode);
+
+            for(Question q : list){
+
+                String type = "";
+
+                switch (q.getExamType()){
+                    case "A": type = "A형"; break;
+                    case "B": type = "B형"; break;
+                    case "1": type = "1형"; break;
+                    case "2": type = "2형"; break;
+                    case "odd": type = "홀수형"; break;
+                    case "even": type = "짝수형"; break;
+                    case "none": type = "타입없음"; break;
+                }
+
+                q.setExamTypeName(type);
+                
+                if(q.getSubjectDetailName().isEmpty()){
+                    q.setSubjectDetailName("공통");
+                }
+
+            }
 
 
+            model.addAttribute("list" , list);
+            model.addAttribute("repository" , repository);
 
 
+            return "view/member/question";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "view/err";
+        }
 
-
-        return null;
 
 
 

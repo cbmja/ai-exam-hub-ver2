@@ -7,18 +7,17 @@
     <div class="repository-description c-c-s">
 
         <div style="font-weight: 600; font-size: 20px;">
-            수능 국어 상급 문제 모음
+            description
         </div>
         <div style="height: 7px;"></div>
-        <div style="overflow-wrap: break-word; overflow-y: auto; max-height: 400px;">
-            내가 풀기 어려웠던 문제 모음asdfasdfsdafasdfsdadddddddddddddddd
-
+        <div style="overflow-wrap: break-word; overflow-y: auto; max-height: 400px;" th:text="${repository.description}">
         </div>
     </div>
 
     <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
     <div class="c-s-c">
-
+        <h1 th:text="${repository.repositoryName}"></h1>
+<!--
         <div style="height: 50px;" class="c-c"></div>
         <input class="input-box" style="width: 800px; height: 37px;" placeholder="문제 찾기"/>
         <div style="height: 15px;"></div>
@@ -37,22 +36,23 @@
             <div class="mypage-top-btn hover-cursor" style="margin-left: auto;" id="add-question-btn">·&nbsp;&nbsp;문제 추가하기</div>
         </div>
         <div style="height: 20px;"></div>
+-->
 
     </div>
     <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->
 
     <!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 --><!-- 목록 요소들 -->
-    <div class="c-c-s question-element bd-b-grey2">
+    <div class="c-c-s question-element bd-b-grey2" th:each="question : ${list}" th:object="${question}">
 
         <div class="r-s-c">
-            <div style="font-weight: 600; font-size: 20px; color: #141517;">2025_수능_국어_화법과작문_홀수형_3번</div>
+            <div style="font-weight: 600; font-size: 20px; color: #141517;" th:text="*{examYear +'년도_'+ examMonth +'월_'+ ExamCateName +'_'+ subjectName +'_'+ subjectDetailName +'_'+ examTypeName +'_'+ questionNo+'번'}"></div>
         </div>
 
         <div style="height:10px;"></div>
 
         <div class="r-s-c">
-            <div style="font-weight: 400; font-size: 13px; color: #95979e;">생성일 : 2025-05-09/17:33</div>
-            <div style="font-weight: 400; font-size: 13px; color: #95979e; margin-left: auto;">마지막 작업 : 2025-05-11/18:39</div>
+            <div style="font-weight: 400; font-size: 13px; color: #95979e;" th:text="*{'생성일 : '+createdAt}"></div>
+            <div style="font-weight: 400; font-size: 13px; color: #95979e; margin-left: auto;" th:text="*{'마지막 작업 : '+updatedAt}"></div>
         </div>
 
 

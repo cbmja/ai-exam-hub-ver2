@@ -11,4 +11,6 @@ public interface RepositoryMapper {
 
     int getTotal(Page page);
 
+    Repository selectByRepositoryCode(String repositoryCode);
+
 }

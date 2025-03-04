@@ -22,5 +22,10 @@
         WHERE ${searchType} LIKE concat('%',#{search},'%');
     </select>
 
+    <select id="selectByRepositoryCode" parameterType="String" resultType="Repository">
+        SELECT * FROM repository
+        WHERE repository_code = #{repositoryCode};
+    </select>
+
 
 </mapper>
