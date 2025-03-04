@@ -4,14 +4,13 @@
       layout:decorate="~{view/layout/layout}">
 <div layout:fragment="content">
 
-    <div class="repository-description c-c-s">
+    <div class="repository-description c-c-c">
 
-        <div style="font-weight: 600; font-size: 20px;">
-            description
-        </div>
+        <input class="repo-description-ibox" style="font-weight: 600; font-size: 20px;" th:value="${repository.repositoryName}"/>
         <div style="height: 7px;"></div>
-        <div style="overflow-wrap: break-word; overflow-y: auto; max-height: 400px;" th:text="${repository.description}">
-        </div>
+        <textarea class="repo-description-tbox" th:text="${repository.description}"></textarea>
+        <div style="height: 7px;"></div>
+        <div class="black-btn" style="margin-left: auto; padding: 3px 20px !important;">수정</div>
     </div>
 
     <!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 --><!-- 상단 검색 , 정렬 , 생성버튼 -->

@@ -99,5 +99,64 @@
 }
 
 
+.repo-description-tbox{
+
+    height: 400px;
+    width: 290px;
+
+    /* 크기 조절 불가 */
+    resize: none;
+    transition: border-color 0.2s ease-in-out;
+    border: 1px solid #c0c2cc;
+
+    border-radius: 3px;
+
+    background-color: #FFFFFF;
+
+    padding: 5px;
+
+    margin: 0;
+
+    /* 텍스트 */
+    font-size: 15px;
+    color: #141517;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+.repo-description-tbox:focus , .repo-description-tbox:hover{
+    outline: none;
+    border: 2px solid #FE6E2F;
+}
 
 
+.repo-description-ibox{
+    all: unset;
+
+    /* 크기 */
+
+    /* 테두리 */
+    border: 1px solid #c0c2cc;
+    border-radius: 3px;
+
+    background-color: #FFFFFF;
+
+    /* 여백 */
+    padding-left: 5px;
+    padding-right: 5px;
+
+    /* 텍스트 */
+    font-size: 15px;
+    color: #141517;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+}
+.repo-description-ibox:hover , .repo-description-ibox:focus{
+    border: 2px solid #FE6E2F;
+}
