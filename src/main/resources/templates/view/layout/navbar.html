@@ -5,7 +5,7 @@
     <div class="nav-element" style="font-size: 25px; margin-right: auto; font-weight: 600;" id="select-exam-info"></div>
 
 
-    <div class="nav-element hover-green checked-green" id="mypage-btn">나의 저장소 관리</div>
+    <div th:class="${navSelected == 'mypage'} ? 'nav-element hover-green checked-green' : 'nav-element hover-green'" id="mypage-btn">나의 저장소 관리</div>
     <div style="width: 20px;"></div>
     <div class="nav-element" style="color: #FE6E2F;">|</div>
     <div style="width: 20px;"></div>

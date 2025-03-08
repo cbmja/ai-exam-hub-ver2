@@ -105,7 +105,7 @@ public class MemberController {
             model.addAttribute("list" , list);
             model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
             model.addAttribute("page" , pageData);
-
+            model.addAttribute("navSelected" , "mypage");
 
             return "view/member/repository";
         }catch (Exception e){
@@ -162,7 +162,7 @@ public class MemberController {
 
             model.addAttribute("list" , list);
             model.addAttribute("repository" , repository);
-
+            model.addAttribute("navSelected" , "mypage");
 
             return "view/member/question";
         }catch (Exception e){
