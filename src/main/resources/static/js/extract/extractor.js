@@ -42,6 +42,7 @@ $(document).on('change', '.extract-select', function(){
                 break;
             }
 
+            // 선택한 시험에 따라 다음 select 생성
             $.ajax({
                 url: '/member/org',
                 method: 'GET',
@@ -53,7 +54,24 @@ $(document).on('change', '.extract-select', function(){
                     return;
                 }
 
-                let str = '<option selected disabled> 주관 </option>';
+                let str;
+
+                // 수능 , 모의고사
+                if(examCateCode == 'CSAT' || examCateCode == 'MOCK'){
+                    str = '<option selected disabled> 주관 </option>';
+                }
+
+                // 중간고사 , 기말고사
+                if(examCateCode == 'FINAL' || examCateCode == 'MIDTERM'){
+                    str = '<option selected disabled> 학교 </option>';
+                }
+
+                // 문제집
+                if(examCateCode == 'WOBO'){
+                    str = '<option selected disabled> 출판사 </option>';
+                }
+
+
 
                 for(const ele of list){
                     str += `<option value=${ele.examOrgCode}>${ele.examOrgName}</option>`;
