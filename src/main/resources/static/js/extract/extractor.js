@@ -33,15 +33,46 @@ $(document).on('change', '.extract-select', function(){
     let originalText = $('#'+id+' option:selected').text();
 
     switch(id){
-        case 'exam-cate-form' :
+        case 'exam-cate-form' : // 시험종류
             examCateCode = value;
             examCateName = originalText;
+            if(examCateCode == 'ETC'){
+                $('#exam-org-form').empty().append('<option selected disabled> 주관 </option>');
+                return;
+                break;
+            }
+
+            $.ajax({
+                url: '/member/org',
+                method: 'GET',
+                data: { examCateCode: examCateCode },
+                success: function(list) {
+
+                if(list === null){
+                    alert('서버 에러입니다.');
+                    return;
+                }
+
+                let str = '<option selected disabled> 주관 </option>';
+
+                for(const ele of list){
+                    str += `<option value=${ele.examOrgCode}>${ele.examOrgName}</option>`;
+                }
+                $('#exam-org-form').empty().append(str);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('서버 에러입니다. 잠시 후 다시 시도해 주세요.');
+                }
+            });
+
+
             break;
-        case 'exam-org-form' :
+        case 'exam-org-form' : // 출제기관
             examOrgCode = value;
             examOrgName = originalText;
             break;
-        case 'subject-form' :
+        case 'subject-form' : // 과목
             examSubjectCode = value;
             examSubjectName = originalText;
             break;

@@ -4,6 +4,16 @@
 
 <mapper namespace="com.aiexamhub.exam.mapper.ExamOrgMapper">
 
-
+    <select id="selectByCateCode" parameterType="String" resultType="ExamOrg">
+        SELECT
+        *
+        FROM
+        exam_cate ec
+        LEFT JOIN cate_org co
+        ON ec.exam_cate_code = co.exam_cate_code
+        LEFT join exam_org eo
+        ON co.exam_org_code = eo.exam_org_code
+        WHERE ec.exam_cate_code = #{examCateCode};
+    </select>
 
 </mapper>

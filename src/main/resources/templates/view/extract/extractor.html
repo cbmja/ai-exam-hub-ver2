@@ -15,26 +15,27 @@
         <div style="width: 745px;" class="c-c">
             <select class="select-box extract-select" style="width: 120px" data-id="exam-cate-form" id="exam-cate-form">
                 <option selected disabled> 시험 종류 </option>
+                <option th:each="cate : ${cateList}" th:text="${cate.examCateName}" th:value="${cate.examCateCode}"></option>
 
             </select>
 
             <div style="width: 5px;"></div>
 
             <select class="select-box extract-select" style="width: 120px" data-id="exam-org-form" id="exam-org-form">
-                <option selected disabled> 출제 기관 </option>
+                <option selected disabled> 주관 </option>
 
             </select>
 
             <div style="width: 5px;"></div>
 
             <select class="select-box extract-select" style="width: 120px" data-id="year-form" id="year-form">
-                <option selected disabled> 시험 년도 </option>
+                <option selected disabled> 년도 </option>
             </select>
 
             <div style="width: 5px;"></div>
 
             <select class="select-box extract-select" style="width: 120px" data-id="month-form" id="month-form">
-                <option selected disabled> 시험 월 </option>
+                <option selected disabled> 월 </option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -52,13 +53,13 @@
             <div style="width: 5px;"></div>
 
             <select class="select-box extract-select" style="width: 120px" data-id="subject-form" id="subject-form">
-                <option selected disabled> 시험 과목 </option>
+                <option selected disabled> 과목 </option>
             </select>
 
             <div style="width: 5px;"></div>
 
             <select class="select-box extract-select" style="width: 120px" data-id="type-form" id="type-form">
-                <option selected disabled> 시험 타입 </option>
+                <option selected disabled> 타입 </option>
                 <option value="EVEN">짝수형</option>
                 <option value="ODD">홀수형</option>
                 <option value="A">A형</option>

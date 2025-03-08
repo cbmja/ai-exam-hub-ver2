@@ -4,5 +4,11 @@
 
 <mapper namespace="com.aiexamhub.exam.mapper.ExamCateMapper">
 
+    <select id="selectAll" resultType="ExamCate">
+        SELECT * FROM exam_cate ORDER BY weight DESC;
+    </select>
+
+
+
 
 </mapper>

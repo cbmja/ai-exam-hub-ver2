@@ -1,9 +1,6 @@
 package com.aiexamhub.exam.controller;
 
-import com.aiexamhub.exam.dto.Member;
-import com.aiexamhub.exam.dto.Page;
-import com.aiexamhub.exam.dto.Question;
-import com.aiexamhub.exam.dto.Repository;
+import com.aiexamhub.exam.dto.*;
 import com.aiexamhub.exam.service.LoginService;
 import com.aiexamhub.exam.service.RepositoryService;
 import com.aiexamhub.exam.util.CipherUtil;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -230,18 +228,46 @@ public class MemberController {
     }
 */
 
+    // ok
+    // 출력화면
     @GetMapping("/extract/{repositoryCode}")
     public String extract(ServletRequest servletRequest, Model model , @PathVariable(name = "repositoryCode") String repositoryCode){
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        try {
+            HttpServletRequest req = (HttpServletRequest) servletRequest;
 
-        model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
-        model.addAttribute("repositoryCode" , repositoryCode);
+            List<ExamCate> cateList = sql.selectList("com.aiexamhub.exam.mapper.ExamCateMapper.selectAll");
 
-        return "view/extract/extractor";
+            model.addAttribute("cateList" , cateList);
+            model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+            model.addAttribute("repositoryCode" , repositoryCode);
+
+            return "view/extract/extractor";
+        }catch (Exception e){
+            return "view/err";
+        }
+
     }
 
+    // ok
+    // 시험 종류 선택시 주관 select
+    @GetMapping("/org")
+    @ResponseBody
+    public List<ExamOrg> org(@RequestParam(name = "examCateCode") String examCateCode){
+        try {
 
+            List<ExamOrg> cateList = sql.selectList("com.aiexamhub.exam.mapper.ExamOrgMapper.selectByCateCode" , examCateCode);
 
+            if(cateList == null){
+                cateList = new ArrayList<>();
+            }
+
+            return cateList;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
 
 }
