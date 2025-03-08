@@ -76,7 +76,7 @@ $(document).on('change', '.extract-select', function(){
                 for(const ele of list){
                     str += `<option value=${ele.examOrgCode}>${ele.examOrgName}</option>`;
                 }
-                $('#exam-org-form').empty().append(str);
+                $('#exam-org-form').empty().append(str).prop('disabled' , false);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);

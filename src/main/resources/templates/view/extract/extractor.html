@@ -14,15 +14,15 @@
 
         <div style="width: 745px;" class="c-c">
             <select class="select-box extract-select" style="width: 120px" data-id="exam-cate-form" id="exam-cate-form">
-                <option selected disabled> 시험 종류 </option>
+                <option selected disabled> 종류 </option>
                 <option th:each="cate : ${cateList}" th:text="${cate.examCateName}" th:value="${cate.examCateCode}"></option>
 
             </select>
 
             <div style="width: 5px;"></div>
 
-            <select class="select-box extract-select" style="width: 120px" data-id="exam-org-form" id="exam-org-form">
-                <option selected disabled> 주관 </option>
+            <select class="select-box extract-select" style="width: 120px" data-id="exam-org-form" id="exam-org-form" disabled>
+                <option selected disabled> 종류를 선택하세요. </option>
 
             </select>
 
