@@ -24,7 +24,7 @@ for (let year = currentYear; year >= currentYear - 35; year--) {
     selectBox.append(`<option value="${year}">${year}</option>`);
 }
 
-// 시험 select 변경 시 값 저장
+// 시험 select 변경 시 값 저장 / select 동적으로 띄우기
 $(document).on('change', '.extract-select', function(){
 
     let id = $(this).attr('id');
