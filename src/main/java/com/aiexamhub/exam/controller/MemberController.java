@@ -230,10 +230,12 @@ public class MemberController {
     }
 */
 
-    @GetMapping("/extract")
-    public String extract(ServletRequest servletRequest, Model model){
+    @GetMapping("/extract/{repositoryCode}")
+    public String extract(ServletRequest servletRequest, Model model , @PathVariable(name = "repositoryCode") String repositoryCode){
         HttpServletRequest req = (HttpServletRequest) servletRequest;
+
         model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+        model.addAttribute("repositoryCode" , repositoryCode);
 
         return "view/extract/extractor";
     }

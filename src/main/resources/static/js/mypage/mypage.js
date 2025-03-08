@@ -116,6 +116,14 @@ $(document).ready(function () {
 
     });
 
+    /* 문제 추가 클릭 */
+    $(document).on('click', '#extractor-btn', function(){
+
+        let repositoryCode = $("#repository-code").val();
+
+        window.location.href='/member/extract/'+repositoryCode;
+    });
+
 
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
