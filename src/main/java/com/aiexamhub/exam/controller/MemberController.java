@@ -217,17 +217,6 @@ public class MemberController {
 
     }
 
-
-/*
-    @GetMapping("/question")
-    public String question(ServletRequest servletRequest, Model model){
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
-
-        return "view/member/question";
-    }
-*/
-
     // ok
     // 출력화면
     @GetMapping("/extract/{repositoryCode}")
@@ -270,4 +259,24 @@ public class MemberController {
     }
 
 
+    // ok
+    // 시험 종류 선택시 과목 select
+    @GetMapping("/subject")
+    @ResponseBody
+    public List<Subject> subject(@RequestParam(name = "examCateCode") String examCateCode){
+        try {
+
+            List<Subject> subjectList = sql.selectList("com.aiexamhub.exam.mapper.SubjectMapper.selectByCateCode" , examCateCode);
+
+            if(subjectList == null){
+                subjectList = new ArrayList<>();
+            }
+
+            return subjectList;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }

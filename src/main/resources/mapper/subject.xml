@@ -5,4 +5,14 @@
 <mapper namespace="com.aiexamhub.exam.mapper.SubjectMapper">
 
 
+    <select id="selectByCateCode" parameterType="String" resultType="Subject">
+        SELECT
+        *
+        FROM
+        subject s
+        LEFT JOIN cate_subject cs
+        ON s.subject_code = cs.subject_code
+        WHERE cs.exam_cate_code = #{examCateCode};
+    </select>
+
 </mapper>

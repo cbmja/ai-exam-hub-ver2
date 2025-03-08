@@ -67,6 +67,31 @@ $(document).on('change', '.extract-select', function(){
             });
 
 
+            $.ajax({
+                url: '/member/subject',
+                method: 'GET',
+                data: { examCateCode: examCateCode },
+                success: function(list) {
+
+                if(list === null){
+                    alert('서버 에러입니다.');
+                    return;
+                }
+
+                let str = '<option selected disabled> 과목 </option>';
+
+                for(const ele of list){
+                    str += `<option value=${ele.subjectCode}>${ele.subjectName}</option>`;
+                }
+                $('#subject-form').empty().append(str);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('서버 에러입니다. 잠시 후 다시 시도해 주세요.');
+                }
+            });subjectList
+
+
             break;
         case 'exam-org-form' : // 출제기관
             examOrgCode = value;
