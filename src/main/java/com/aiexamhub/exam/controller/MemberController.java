@@ -380,8 +380,9 @@ public class MemberController {
                     //.replaceAll("<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>","<br>")
                     .replaceAll("\\d+\\s*<br>20<br>", "")
                     .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br>[$2번 문제]<br>")
-                    .replaceAll("(②|③|④|⑤)", "<br>$1")
-                    .replaceAll("①" , "<br>①")
+                    .replaceAll("(②|③|④)", "\"/><br><input style=\"width: 80%;\" class=\"input-box\" type=\"text\" value=\"$1")
+                    .replaceAll("(⑤)", "\"/><br>$1")
+                    .replaceAll("①" , "<br><input style=\"width: 80%;\" class=\"input-box\" type=\"text\" value=\"①")
                     .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br>[$1~$2]")
                     .replaceAll("<br>\\d+\\s*<br>" , "")
                     .replaceAll("<보 기>" , "<br><보 기>");
