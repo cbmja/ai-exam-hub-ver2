@@ -107,7 +107,7 @@ $(document).on('change', '.extract-select', function(){
                     console.error('Error:', error);
                     alert('서버 에러입니다. 잠시 후 다시 시도해 주세요.');
                 }
-            });subjectList
+            });
 
 
             break;
@@ -273,7 +273,28 @@ $(document).on('click', '#extract-question-btn', function () {
     };
 });
 
+/* 자동 추출 버튼 */
+$(document).on('click', '#extract-question-auto-btn', function(){
 
+    var formData = new FormData();
+    formData.append("pdf", upLoadFile);
+
+    $.ajax({
+        url: "/member/extract/auto",
+        method: "POST",
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+            console.log("파일 업로드 성공:", response);
+        },
+        error: function (xhr, status, error) {
+            alert("서버 에러");
+        },
+    });
+
+
+});
 
 
 

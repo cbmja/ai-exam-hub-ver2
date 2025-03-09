@@ -13,6 +13,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -279,4 +280,19 @@ public class MemberController {
         }
 
     }
+
+    // ok
+    // 자동추출 pdf
+    @PostMapping("/extract/auto")
+    @ResponseBody
+    public String autoExtract(@RequestParam("pdf") MultipartFile pdf){
+
+
+
+
+
+
+        return null;
+    }
+
 }
