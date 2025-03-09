@@ -12,7 +12,8 @@
         subject s
         LEFT JOIN cate_subject cs
         ON s.subject_code = cs.subject_code
-        WHERE cs.exam_cate_code = #{examCateCode};
+        WHERE cs.exam_cate_code = #{examCateCode}
+        ORDER BY s.subject_name ASC;
     </select>
 
 </mapper>
