@@ -383,9 +383,10 @@ public class MemberController {
                     .replaceAll("(②|③|④)", "\"/><br><input style=\"width: 80%;\" class=\"input-box\" type=\"text\" value=\"$1")
                     .replaceAll("(⑤)", "\"/><br>$1")
                     .replaceAll("①" , "<br><input style=\"width: 80%;\" class=\"input-box\" type=\"text\" value=\"①")
-                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br>[$1~$2]")
+                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br><textarea class=\"textarea-box\" style=\"height: 300px; width: 80%;\">[$1~$2]")
                     .replaceAll("<br>\\d+\\s*<br>" , "")
-                    .replaceAll("<보 기>" , "<br><보 기>");
+                    .replaceAll("<보 기>" , "<br><보 기>")
+                    .replaceAll("(<textarea class=\"textarea-box\" style=\"height: 300px; width: 80%;\">)(.*?)(?=<hr>)","$1$2</textarea><hr>");
 
             return text;
 
