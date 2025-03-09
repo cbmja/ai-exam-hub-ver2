@@ -378,15 +378,22 @@ public class MemberController {
 
             text = sb.toString()
                     //.replaceAll("<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>","<br>")
-                    .replaceAll("\\d+\\s*<br>20<br>", "")
-                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><input style=\"width: 80%;\" class=\"input-box\" type=\"text\" value=\"[$2번 문제]<br>")
-                    .replaceAll("(②|③|④)", "\"/><br><input style=\"width: 80%;\" class=\"input-box\" type=\"text\" value=\"$1")
-                    .replaceAll("(⑤)", "\"/><br>$1")
-                    .replaceAll("①" , "\"><br><input style=\"width: 80%;\" class=\"input-box\" type=\"text\" value=\"①")
-                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br><textarea class=\"textarea-box\" style=\"height: 300px; width: 80%;\">[$1~$2]")
-                    .replaceAll("<br>\\d+\\s*<br>" , "")
-                    .replaceAll("<보 기>" , "<br><보 기>")
-                    .replaceAll("(<textarea class=\"textarea-box\" style=\"height: 300px; width: 80%;\">)(.*?)(?=<hr>)","$1$2</textarea><hr>");
+                    .replaceAll("\\d+\\s*<br>20<br>", "") // 총 페이지 텍스트 삭제
+
+                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"[$2번 문제]<br>") // 문제 시작 부분
+                    .replaceAll("①" , "\"><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"①") // 문제 종료 , 1번 선택지 시작
+
+                    .replaceAll("(②|③|④|⑤)", "\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"$1") // 1,2,3,4 번 선택지 종료 , 2,3,4,5 번 선택지 시작
+
+                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br><textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">[$1~$2]") // 공통 지문 시작
+
+                    .replaceAll("<br>\\d+\\s*<br>" , "") // 페이지 정보 텍스트 삭제
+                    // .replaceAll("<보 기>" , "<br><보 기>")
+                    .replaceAll("(<textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">)(.*?)(?=<hr>)","$1$2</textarea><hr>"); // 공통 지문 종료
+
+            text = text.replaceAll("(\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"⑤)(.*?)(?=<hr>)" , "$1$2\"><hr>") // 5번 선택지 종료
+                    .replaceAll("<br>" , "")
+                    .replaceAll("<hr><hr>" , "<hr style=\"margin: 30px;\">");
 
             return text;
 
