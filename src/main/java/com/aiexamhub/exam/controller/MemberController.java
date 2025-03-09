@@ -393,7 +393,7 @@ public class MemberController {
 
             text = text.replaceAll("(\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"⑤)(.*?)(?=<hr>)" , "$1$2\"><hr>") // 5번 선택지 종료
                     .replaceAll("<br>" , "")
-                    .replaceAll("<hr><hr>" , "<hr style=\"margin: 30px;\">");
+                    .replaceAll("<hr><hr>" , "<hr style=\"margin-bottom: 30px; margin-top: 30px;\">");
 
             return text;
 
