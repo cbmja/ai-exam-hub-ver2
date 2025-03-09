@@ -273,6 +273,7 @@ $(document).on('click', '#extract-question-btn', function () {
     };
 });
 
+
 /* 자동 추출 버튼 */
 $(document).on('click', '#extract-question-auto-btn', function(){
 
@@ -286,6 +287,17 @@ $(document).on('click', '#extract-question-auto-btn', function(){
         contentType: false,
         data: formData,
         success: function (response) {
+
+            if(response == 'err'){
+                alert("서버 에러입니다.");
+                return;
+            }
+
+            $('#extract-form').css('display', 'none');
+            $('#extract-exam').css('display', 'block').empty();
+
+            $('#extract-exam').append(response);
+
             console.log("파일 업로드 성공:", response);
         },
         error: function (xhr, status, error) {

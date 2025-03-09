@@ -9,13 +9,21 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.TextPosition;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -287,12 +295,148 @@ public class MemberController {
     @ResponseBody
     public String autoExtract(@RequestParam("pdf") MultipartFile pdf){
 
+        Map<String, Object> response = new HashMap<>();
+        List<Map<String, Object>> fontData = new ArrayList<>();
+        String text = "";
+        try (PDDocument document = Loader.loadPDF(convertMultipartFileToFile(pdf))) {
+
+            // PDF 텍스트 추출 (폰트 정보 포함)
+            FontInfoExtractor fontExtractor = new FontInfoExtractor();
+            fontExtractor.setFontData(fontData);
+            fontExtractor.getText(document);
+
+            response.put("fonts", fontData);
+
+            for(int i = 0; i < fontData.size(); i++){
+
+                // font 객체는 '한 글자'.
+                /* ex)
+                 * {
+                 *   "text": "수",
+                 *   "x": 129.20339,
+                 *   "y": 64783.0283,
+                 * }
+                 * */
+                // fontData 는 위의 font 들로 이루어진 시험지 전체의 텍스트 list
+                Map<String, Object> font = fontData.get(i);
 
 
+                // 텍스트의 y좌표를 통해 문단을 분리 하는 작업
+                // 첫 인덱스
+                if(i == 0){
+                    text += (String)font.get("text");
+                }else{
+                    // y 좌표가 동일하면 같은 행
+                    if((float)font.get("y") == (float)fontData.get(i-1).get("y")){
+                        text += (String)font.get("text");
+                    }else{
+                        // 다르면 줄바꿈
 
+                        // 다음 행과의 높이
+                        float height = (float)font.get("y") - (float)(float)fontData.get(i-1).get("y");
 
+                        // 높이가 음수가 나오는 경우
+                        // 1. 간헐적으로 등장하는 -0.xxx : 미세하게 이전 텍스트보다 높게 존재하는 경우
+                        // - 줄바꿈 하지 않도록 처리
+                        // 2. 좌측 하단이 끝나고 우측 상단으로 이동한 경우
+                        // - 양수로 변환 해도 구별 가능 (|height| >= 800 인 경우 줄바꿈)
 
-        return null;
+                        if(height < 0){
+                            height = height * -1f;
+                        }
+
+                        // 1. 높이가 소숫점 대이면 같은 행으로 취급
+                        // 2. 높이가 18.xx , 19.xx , 20.xx이면 같은 문장 내 줄바꿈 이므로 같은 행으로 취급
+                        if(Math.floor(height) == 0 || Math.floor(height) == 18 || Math.floor(height) == 19 || Math.floor(height) == 20){
+                            text += (String)font.get("text");
+                        }else{
+                            // 이외에는 분류 타입이 바뀌는 부분으로 간주.
+                            // ex)
+                            // 1. 문제 지문 -> 문제 텍스트
+                            // 2. 문제 텍스트 -> 문제 보기 or 선택지 1번
+                            // 3. 문제 보기 -> 선택지 1번
+                            // 4. 선택지 5번 -> 문제 지문 or 다음 문제 텍스트
+
+                            // 가독성을 위해 줄바꿈.
+                            text += /*"-----"+height+*/"<br>"+(String)font.get("text");
+                        }
+                    }
+
+                }
+
+            }
+
+            // 문제와 상관 없는 텍스트 제거
+            StringBuilder sb = new StringBuilder(text);
+            replaceInStringBuilder(sb, "이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다.", "");
+            replaceInStringBuilder(sb, "2025학년도 대학수학능력시험 문제지<br>", "");
+            replaceInStringBuilder(sb, "(언어와 매체)", "");
+            replaceInStringBuilder(sb, "(화법과 작문)", "");
+            replaceInStringBuilder(sb, "<br>짝수형<br>", "");
+            replaceInStringBuilder(sb, "<br>홀수형<br>", "");
+            replaceInStringBuilder(sb, "제1교시", "");
+
+            text = sb.toString()
+                    //.replaceAll("<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>","<br>")
+                    .replaceAll("\\d+\\s*<br>20<br>", "")
+                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br>[$2번 문제]<br>")
+                    .replaceAll("(②|③|④|⑤)", "<br>$1")
+                    .replaceAll("①" , "<br>①")
+                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br>[$1~$2]")
+                    .replaceAll("<br>\\d+\\s*<br>" , "")
+                    .replaceAll("<보 기>" , "<br><보 기>");
+
+            return text;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            response.put("error", "PDF 로드 실패: " + e.getMessage());
+            return "err";
+        }
+
     }
 
+
+
+
+    private File convertMultipartFileToFile(MultipartFile file) throws IOException {
+        File convFile = File.createTempFile("uploaded-", ".pdf"); // 임시 파일 생성
+        try (FileOutputStream fos = new FileOutputStream(convFile)) {
+            fos.write(file.getBytes());
+        }
+        return convFile;
+    }
+
+    public static void replaceInStringBuilder(StringBuilder sb, String target, String replacement) {
+        int index;
+        while ((index = sb.indexOf(target)) != -1) {
+            sb.replace(index, index + target.length(), replacement);
+        }
+    }
+
+}
+
+
+
+class FontInfoExtractor extends PDFTextStripper {
+    private List<Map<String, Object>> fontData;
+
+    public FontInfoExtractor() throws IOException {
+        super();
+        this.fontData = new ArrayList<>();  // 기본 리스트 초기화
+    }
+
+    public void setFontData(List<Map<String, Object>> fontData) {
+        this.fontData = fontData;
+    }
+
+    @Override
+    protected void processTextPosition(TextPosition text) {
+        Map<String, Object> fontInfo = new HashMap<>();
+        fontInfo.put("text", text.getUnicode());
+        fontInfo.put("size", text.getFontSizeInPt());
+        fontInfo.put("x", text.getX());
+        fontInfo.put("y",text.getY());
+        fontData.add(fontInfo);
+    }
 }
