@@ -10,7 +10,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.graphics.PDXObject;
+import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,6 +24,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -309,7 +317,7 @@ public class MemberController {
 
             for(int i = 0; i < fontData.size(); i++){
 
-                // font 객체는 '한 글자'.
+                // font는 '한 글자'.
                 /* ex)
                  * {
                  *   "text": "수",
@@ -395,6 +403,8 @@ public class MemberController {
                     .replaceAll("<br>" , "")
                     .replaceAll("<hr><hr>" , "<hr style=\"margin-bottom: 30px; margin-top: 30px;\">");
 
+            exportImg(document);
+
             return text;
 
         } catch (IOException e) {
@@ -405,7 +415,60 @@ public class MemberController {
 
     }
 
+    private String exportImg(PDDocument doc){
 
+        try {
+            String outputFolder = "C:\\Users\\jeon\\Desktop\\시험_사이트\\시연\\extract_img";
+
+            int i = 1;
+            for (PDPage page : doc.getPages()) {
+                // 페이지 좌표 변환 행렬
+                AffineTransform transform = page.getMatrix().createAffineTransform();
+
+                for (COSName cosName : page.getResources().getXObjectNames()) {
+                    PDXObject xObject = page.getResources().getXObject(cosName);
+
+                    if (xObject instanceof PDImageXObject) {
+                        PDImageXObject image = (PDImageXObject) xObject;
+                        BufferedImage bufferedImage = image.getImage();
+
+                        // 이미지 좌표값 가져오기 (반올림 X)
+                        double x = transform.getTranslateX();
+                        double y = transform.getTranslateY();
+
+                        String imagePath = outputFolder + "/"+( i++ )+"x" + x + "_y" + y + ".png";
+
+                        File outputFile = new File(imagePath);
+                        ImageIO.write(bufferedImage, "png", outputFile);
+                        System.out.println("Extracted: " + imagePath);
+                    } else if (xObject instanceof PDFormXObject) {
+                        extractImagesFromFormXObject((PDFormXObject) xObject, outputFolder);
+                    }
+                }
+            }
+            return "success";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "err";
+        }
+    }
+
+    private static void extractImagesFromFormXObject(PDFormXObject formXObject, String outputFolder) throws IOException {
+        for (COSName cosName : formXObject.getResources().getXObjectNames()) {
+            PDXObject xObject = formXObject.getResources().getXObject(cosName);
+
+            if (xObject instanceof PDImageXObject) {
+                PDImageXObject image = (PDImageXObject) xObject;
+                BufferedImage bufferedImage = image.getImage();
+                String imagePath = outputFolder + "/embedded_x_y.png";
+
+                File outputFile = new File(imagePath);
+                ImageIO.write(bufferedImage, "png", outputFile);
+                System.out.println("Extracted: " + imagePath);
+            }
+        }
+    }
 
 
     private File convertMultipartFileToFile(MultipartFile file) throws IOException {
