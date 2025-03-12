@@ -380,7 +380,11 @@ $(document).on('click', '#extract-question-auto-btn', function(){
 
 });
 
-
+/* 문제 추출 버튼 클릭시 */
+$(document).on('click', '.open-folder-btn', function () {
+    $('#file-input-d').click();
+});
 
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
+
