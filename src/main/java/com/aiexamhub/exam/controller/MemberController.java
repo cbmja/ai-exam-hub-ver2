@@ -385,7 +385,7 @@ public class MemberController {
                     //.replaceAll("<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>","<br>")
                     .replaceAll("\\d+\\s*<br>20<br>", "") // 총 페이지 텍스트 삭제
 
-                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><div class=\"question-block\" data-questionno=\"$2\"><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"[$2번 문제]<br>") // 문제 시작 부분
+                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><div class=\"question-block\" data-questionno=\"$2\"><input style=\"width: 95%; height: 30px; border: 3px solid #c0c2cc;\" class=\"input-box\" type=\"text\" value=\"[$2번 문제]<br>") // 문제 시작 부분
                     .replaceAll("①" , "\"><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"①") // 문제 종료 , 1번 선택지 시작
 
                     .replaceAll("(②|③|④|⑤)", "\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"$1") // 1,2,3,4 번 선택지 종료 , 2,3,4,5 번 선택지 시작
