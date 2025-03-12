@@ -277,6 +277,79 @@ $(document).on('click', '#extract-question-btn', function () {
 /* 자동 추출 버튼 */
 $(document).on('click', '#extract-question-auto-btn', function(){
 
+    if (!upLoadFile) {
+        alert('시험지를 업로드 하세요.');
+        return;
+    }
+
+    let selectedExam = `${examYear}_${examMonth} 월_${examCateName}_${examSubjectName}_${examTypeName}`;
+
+    $('#select-exam-info').empty().append(selectedExam);
+
+    $('#extract-form').css('display', 'none');
+    $('#extract-exam').css('display', 'block').empty();
+
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(upLoadFile);
+
+    reader.onload = function () {
+        const arrayBuffer = reader.result;
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+
+        loadingTask.promise
+            .then(function (pdf) {
+                let totalPages = pdf.numPages;
+
+                function renderPage(pageNum) {
+                    pdf.getPage(pageNum).then(function (page) {
+                        const scale = 2.5; // 해상도
+                        const viewport = page.getViewport({ scale });
+
+                        // Canvas 생성
+                        const canvas = $('<canvas></canvas>')[0];
+                        const context = canvas.getContext('2d');
+
+
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+
+
+                        $(canvas).css({
+                            width: viewport.width / scale + "px",
+                            height: viewport.height / scale + "px"
+                        });
+
+
+                        page.render({ canvasContext: context, viewport }).promise.then(function () {
+                            // Canvas를 이미지로 변환 (고해상도 유지)
+                            const img = $('<img>')
+                                .attr('src', canvas.toDataURL('image/png'))
+                                .css({
+                                    width: "70%", // 반응형 크기 조절
+                                    "max-width": viewport.width + "px",
+                                    "height": "auto" // 가로·세로 비율 유지
+                                });
+
+                            // `extract-exam` div에 이미지 추가
+                            $('#extract-exam').append(img);
+
+                            // 다음 페이지 처리
+                            if (pageNum < totalPages) {
+                                renderPage(pageNum + 1);
+                            }
+                        });
+                    });
+                }
+
+                // 첫 페이지부터 렌더링 시작
+                renderPage(1);
+            })
+            .catch(function (error) {
+                console.error('PDF 로드 중 오류 발생:', error);
+            });
+    };
+
+
     var formData = new FormData();
     formData.append("pdf", upLoadFile);
 
@@ -294,10 +367,8 @@ $(document).on('click', '#extract-question-auto-btn', function(){
                 return;
             }
 
-            $('#extract-form').css('display', 'none');
-            $('#extract-exam').css('display', 'block').empty();
-
-            $('#extract-exam').append(response);
+            $('#extract-res').css('display' , 'flex');
+            $('#extract-res').append(response);
 
             console.log("파일 업로드 성공:", response);
         },

@@ -41,4 +41,46 @@
 }
 
 
+.extract-ele-ar{
+
+    width: 500px;
+    height: 600px;
+
+    border: 2px solid #FE6E2F;
+
+    background-color: #FFFFFF;
+
+    border-radius: 3px;
+
+    font-size: 20px;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+
+    overflow-y: auto;
+
+    display: none;
+
+
+    /* 위치 */
+    position: fixed;
+    right: 20px;
+    top: 110px;
+    z-index: 3000;
+
+}
+
+.question-block{
+
+    padding: 10px;
+    border: 2px solid red;
+}
+
+.passage-block{
+    padding-left: 15px;
+    border: 2px solid orange;
+    width: 100%;
+
+}
 
