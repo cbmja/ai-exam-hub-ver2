@@ -419,3 +419,15 @@ body{
     /* 배경 */
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+.question-block{
+
+    padding: 10px;
+    border: 2px solid red;
+}
+
+.passage-block{
+    padding: 10px;
+    border: 2px solid orange;
+
+}

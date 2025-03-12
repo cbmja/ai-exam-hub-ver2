@@ -30,10 +30,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -388,22 +385,32 @@ public class MemberController {
                     //.replaceAll("<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>","<br>")
                     .replaceAll("\\d+\\s*<br>20<br>", "") // 총 페이지 텍스트 삭제
 
-                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"[$2번 문제]<br>") // 문제 시작 부분
+                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><div class=\"question-block\" data-questionno=\"$2\"><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"[$2번 문제]<br>") // 문제 시작 부분
                     .replaceAll("①" , "\"><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"①") // 문제 종료 , 1번 선택지 시작
 
                     .replaceAll("(②|③|④|⑤)", "\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"$1") // 1,2,3,4 번 선택지 종료 , 2,3,4,5 번 선택지 시작
 
-                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br><textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">[$1~$2]") // 공통 지문 시작
+                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br><div class=\"passage-block\"><textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">[$1~$2]") // 공통 지문 시작
 
                     .replaceAll("<br>\\d+\\s*<br>" , "") // 페이지 정보 텍스트 삭제
                     // .replaceAll("<보 기>" , "<br><보 기>")
-                    .replaceAll("(<textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">)(.*?)(?=<hr>)","$1$2</textarea><hr>"); // 공통 지문 종료
+                    .replaceAll("(<textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">)(.*?)(?=<hr>)","$1$2</textarea></div><hr>"); // 공통 지문 종료
 
-            text = text.replaceAll("(\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"⑤)(.*?)(?=<hr>)" , "$1$2\"><hr>") // 5번 선택지 종료
+            text = text.replaceAll("(\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"⑤)(.*?)(?=<hr>)" , "$1$2\"></div><hr>") // 5번 선택지 종료
                     .replaceAll("<br>" , "")
                     .replaceAll("<hr><hr>" , "<hr style=\"margin-bottom: 30px; margin-top: 30px;\">");
 
             exportImg(document);
+
+            // 특정 문자(쉼표)를 기준으로 문자열을 분리
+            String[] splitArray = text.split("<hr style=\"margin-bottom: 30px; margin-top: 30px;\">");
+
+            // 배열을 List로 변환
+            List<String> list = Arrays.asList(splitArray);
+
+            for(String ele : list){
+                System.out.println(ele);
+            }
 
             return text;
 
