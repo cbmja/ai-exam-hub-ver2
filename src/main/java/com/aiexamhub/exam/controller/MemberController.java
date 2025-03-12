@@ -425,7 +425,7 @@ public class MemberController {
     private String exportImg(PDDocument doc){
 
         try {
-            String outputFolder = "C:\\Users\\jeon\\Desktop\\시험_사이트\\시연\\extract_img";
+            String outputFolder = "C:\\Users\\jeon\\Desktop\\extract_img";
 
             int i = 1;
             for (PDPage page : doc.getPages()) {
