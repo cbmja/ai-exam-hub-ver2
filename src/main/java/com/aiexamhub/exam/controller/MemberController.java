@@ -507,6 +507,7 @@ class FontInfoExtractor extends PDFTextStripper {
         Map<String, Object> fontInfo = new HashMap<>();
         fontInfo.put("text", text.getUnicode());
         fontInfo.put("size", text.getFontSizeInPt());
+        fontInfo.put("width", text.getWidth());
         fontInfo.put("x", text.getX());
         fontInfo.put("y",text.getY());
         fontData.add(fontInfo);
