@@ -385,18 +385,18 @@ public class MemberController {
                     //.replaceAll("<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>(?:<br>)?(\\d+)\\s*<br>","<br>")
                     .replaceAll("\\d+\\s*<br>20<br>", "") // 총 페이지 텍스트 삭제
 
-                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><div class=\"question-block\" data-questionno=\"$2\"><input style=\"width: 95%; height: 30px; border: 3px solid #c0c2cc;\" class=\"input-box\" type=\"text\" value=\"[$2번 문제]<br>") // 문제 시작 부분
-                    .replaceAll("①" , "\"><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"①") // 문제 종료 , 1번 선택지 시작
+                    .replaceAll("(<br>)(\\d+\\.)", "$1<br><hr><br><div class=\"question-block\" data-questionno=\"$2\"><input style=\"width: 95%; height: 30px; border: 3px solid #c0c2cc;\" class=\"input-box q-bb\" type=\"text\" value=\"[$2번 문제]<br>") // 문제 시작 부분
+                    .replaceAll("①" , "\"><br><input style=\"width: 95%;\" class=\"input-box i-bb\" type=\"text\" value=\"①") // 문제 종료 , 1번 선택지 시작
 
-                    .replaceAll("(②|③|④|⑤)", "\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"$1") // 1,2,3,4 번 선택지 종료 , 2,3,4,5 번 선택지 시작
+                    .replaceAll("(②|③|④|⑤)", "\"/><br><input style=\"width: 95%;\" class=\"input-box i-bb\" type=\"text\" value=\"$1") // 1,2,3,4 번 선택지 종료 , 2,3,4,5 번 선택지 시작
 
-                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br><div class=\"passage-block\"><textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">[$1~$2]") // 공통 지문 시작
+                    .replaceAll("\\[(\\d+)～(\\d+)\\]" , "<br><hr><br><div class=\"passage-block\"><textarea class=\"textarea-box t-bb\" style=\"height: 300px; width: 95%;\">[$1~$2]") // 공통 지문 시작
 
                     .replaceAll("<br>\\d+\\s*<br>" , "") // 페이지 정보 텍스트 삭제
                     // .replaceAll("<보 기>" , "<br><보 기>")
-                    .replaceAll("(<textarea class=\"textarea-box\" style=\"height: 300px; width: 95%;\">)(.*?)(?=<hr>)","$1$2</textarea></div><hr>"); // 공통 지문 종료
+                    .replaceAll("(<textarea class=\"textarea-box t-bb\" style=\"height: 300px; width: 95%;\">)(.*?)(?=<hr>)","$1$2</textarea></div><hr>"); // 공통 지문 종료
 
-            text = text.replaceAll("(\"/><br><input style=\"width: 95%;\" class=\"input-box\" type=\"text\" value=\"⑤)(.*?)(?=<hr>)" , "$1$2\"></div><hr>") // 5번 선택지 종료
+            text = text.replaceAll("(\"/><br><input style=\"width: 95%;\" class=\"input-box i-bb\" type=\"text\" value=\"⑤)(.*?)(?=<hr>)" , "$1$2\"></div><hr>") // 5번 선택지 종료
                     .replaceAll("<br>" , "")
                     .replaceAll("<hr><hr>" , "<div class=\"r-e-c\" style=\"margin-left: auto; margin-right: 10px;\"><button class=\"ext-btn\">유형</button><button class=\"ext-btn\">이미지 추가</button><button class=\"ext-btn\">저장</button></div><div style=\"margin-bottom: 10px; margin-top: 30px; width: 90%; border-bottom: 2px solid #FE6E2F; \"></div>");
 
