@@ -280,6 +280,7 @@ $(document).on('click', '#extract-question-auto-btn', function(){
     var formData = new FormData();
     formData.append("pdf", upLoadFile);
 
+
     $.ajax({
         url: "/member/extract/auto",
         method: "POST",
