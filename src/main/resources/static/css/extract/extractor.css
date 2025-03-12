@@ -46,7 +46,7 @@
     width: 500px;
     height: 600px;
 
-    border: 2px solid #FE6E2F;
+    border: 2px solid #2E3434;
 
     background-color: #FFFFFF;
 
@@ -73,14 +73,25 @@
 
 .question-block{
 
-    padding: 10px;
-    border: 2px solid red;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    /*border: 2px solid red;*/
+
+    margin: 10px;
 }
 
 .passage-block{
     padding-left: 15px;
-    border: 2px solid orange;
-    width: 100%;
+    /*border: 2px solid orange;*/
+    width: calc(100% - 38px);
 
+}
+
+.ext-btn{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
