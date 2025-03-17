@@ -5,6 +5,7 @@ import com.aiexamhub.exam.service.LoginService;
 import com.aiexamhub.exam.service.RepositoryService;
 import com.aiexamhub.exam.util.CipherUtil;
 import com.aiexamhub.exam.util.FileToMultipartFile;
+import com.aiexamhub.exam.util.OcrUtil;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +47,8 @@ public class MemberController {
     private final RepositoryService repositoryService;
     private final SqlSessionTemplate sql;
     private final CipherUtil cipherUtil;
+
+    private final OcrUtil ocrUtil;
 
 
     // ok
@@ -500,6 +505,62 @@ public class MemberController {
             sb.replace(index, index + target.length(), replacement);
         }
     }
+
+
+    // ok-02/25---------------------------------------------------------------------------------------------------------
+    // 03/01 2차 귀찮아서 확인 안함 보류 -----------------------------------------------------------------------------------
+    @PostMapping("/naver-ocr")
+    @ResponseBody
+    public String img(ServletRequest servletRequest , @RequestBody Map<String , Object> form , Model model){
+
+        try{
+            HttpServletRequest req = (HttpServletRequest) servletRequest;
+            model.addAttribute("isLogin" , (Boolean)req.getAttribute("isLogin"));
+
+            String base64Image = (String)form.get("image");
+
+            String img64 = base64Image.replaceAll("data:image/png;base64,","");
+
+            String ocrResult = ocrUtil.sendOCRRequest(img64);
+
+            JSONObject jsonObject = new JSONObject(ocrResult);
+            JSONArray images = jsonObject.getJSONArray("images");
+
+            StringBuilder inferTextBuilder = new StringBuilder();
+
+            // Iterate through images and extract inferText from fields
+            for (int i = 0; i < images.length(); i++) {
+                JSONObject image = images.getJSONObject(i);
+                JSONArray fields = image.getJSONArray("fields");
+
+                for (int j = 0; j < fields.length(); j++) {
+                    JSONObject field = fields.getJSONObject(j);
+                    String inferText = field.getString("inferText");
+                    inferTextBuilder.append(inferText);
+
+                    // Add a space if lineBreak is false
+                    if (!field.getBoolean("lineBreak")) {
+                        inferTextBuilder.append(" ");
+                    }
+                }
+            }
+
+            // Output the result
+            String result = inferTextBuilder.toString().trim();
+
+
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            return "err";
+        }
+
+    }
+
+
+
+
+
 
 }
 
