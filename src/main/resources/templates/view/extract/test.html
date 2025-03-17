@@ -37,6 +37,7 @@
     <link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 <body>
+<input type="file" id="file-input-d" style="display: none;">
 <h1>PDF 테두리 표시</h1>
 <div class="extract-ele-ar c-s-c" id="extract-res"></div>
 <div id="pdf-container"></div>
@@ -131,7 +132,9 @@
     });
 
 
-
+$(document).on('click', '.open-folder-btn', function () {
+    $('#file-input-d').click();
+});
 
 </script>
 </body>
