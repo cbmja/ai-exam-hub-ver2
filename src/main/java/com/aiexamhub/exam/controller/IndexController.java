@@ -20,4 +20,13 @@ public class IndexController {
         return "view/index";
     }
 
+    // ok
+    // 메인
+    @GetMapping("/test")
+    public String test(ServletRequest servletRequest, Model model){
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        model.addAttribute("isLogin" , (boolean)req.getAttribute("isLogin"));
+        return "view/extract/test";
+    }
+
 }
