@@ -4,6 +4,7 @@ import com.aiexamhub.exam.dto.*;
 import com.aiexamhub.exam.service.LoginService;
 import com.aiexamhub.exam.service.RepositoryService;
 import com.aiexamhub.exam.util.CipherUtil;
+import com.aiexamhub.exam.util.FileToMultipartFile;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -298,7 +301,12 @@ public class MemberController {
     // 자동추출 pdf
     @PostMapping("/extract/auto")
     @ResponseBody
-    public String autoExtract(@RequestParam("pdf") MultipartFile pdf){
+    public String autoExtract(@RequestParam(value = "pdf" , required = false) MultipartFile pdf){
+
+        if(pdf == null || pdf.isEmpty()){
+            File file = new File("C:\\Users\\jeon\\Desktop\\시험_사이트\\수능 기출 모음\\kor\\25_O_odd.pdf");
+            pdf = new FileToMultipartFile(file);
+        }
 
         Map<String, Object> response = new HashMap<>();
         List<Map<String, Object>> fontData = new ArrayList<>();
@@ -520,3 +528,5 @@ class FontInfoExtractor extends PDFTextStripper {
         fontData.add(fontInfo);
     }
 }
+
+

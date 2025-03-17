@@ -385,6 +385,11 @@ $(document).on('click', '.open-folder-btn', function () {
     $('#file-input-d').click();
 });
 
+
+/* 문제 추출 버튼 클릭시 */
+$(document).on('click', '#ext-test-btn', function () {
+    window.location.href='/test';
+});
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
 
