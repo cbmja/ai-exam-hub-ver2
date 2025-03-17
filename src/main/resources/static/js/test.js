@@ -109,8 +109,15 @@ $(document).on('click', '.highlight-box', function () {
         console.log('Width:', width);
         console.log('Height:', height);
 
+        $('#test-box').css({
+            left: position.left,
+            top: position.top, // 페이지 길이만큼  플러스 해줘야함. 2페이지는 1만큼 , 3페이지는 2만큼. 현제 페이지 -1만큼 y값 보정 필요
+            width: width,
+            height: height,
+        });
 
 
+/*
         // 캡쳐 영역이 있는 부분을 이미지로 생성
         html2canvas(document.body, {
             x: position.left,
@@ -141,6 +148,7 @@ $(document).on('click', '.highlight-box', function () {
             });
 
         });
+        */
 });
 
 
