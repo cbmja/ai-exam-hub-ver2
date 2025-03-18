@@ -23,3 +23,7 @@ canvas {
     border: 2px solid black;
 
 }
+
+.q-cate-btn:hover{
+    cursor: pointer;
+}
