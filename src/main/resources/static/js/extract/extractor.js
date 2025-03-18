@@ -390,6 +390,23 @@ $(document).on('click', '.open-folder-btn', function () {
 $(document).on('click', '#ext-test-btn', function () {
     window.location.href='/test';
 });
+
+
+
+
+$(document).on('click', '.q-cate-btn', function () {
+    var type = $(this).data('type');
+
+    var isSelected = $(this).data('selected');
+
+    if(!isSelected){
+        $(this).css('border' , '2px solid black');
+        $(this).data('selected' , true);
+    }else{
+        $(this).css('border' , 'none');
+        $(this).data('selected' , false);
+    }
+});
 //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 });
 
