@@ -411,7 +411,7 @@ public class MemberController {
 
             text = text.replaceAll("(\"/><br><input style=\"width: 95%;\" class=\"input-box i-bb\" type=\"text\" value=\"⑤)(.*?)(?=<hr>)" , "$1$2\"></div><hr>") // 5번 선택지 종료
                     .replaceAll("<br>" , "")
-                    .replaceAll("<hr><hr>" , "<div class=\"r-e-c\" style=\"margin-left: auto; margin-right: 10px;\"><button class=\"ext-btn\">유형1</button><button class=\"ext-btn\">유형2</button><button class=\"ext-btn\">유형3</button><button class=\"ext-btn open-folder-btn\">이미지 추가</button><button class=\"ext-btn\">저장</button></div><div style=\"margin-bottom: 10px; margin-top: 30px; width: 90%; border-bottom: 2px solid #FE6E2F; \"></div>");
+                    .replaceAll("<hr><hr>" , "<div class=\"r-e-c\" style=\"margin-left: auto; margin-right: 10px;\"><img src=\"/img/1.png\" style=\"width: 35px; height: 35px;\"><img src=\"/img/2.png\" style=\"width: 35px; height: 35px;\"><img src=\"/img/3.png\" style=\"width: 35px; height: 35px;\"><button class=\"ext-btn open-folder-btn\">이미지 추가</button><button class=\"ext-btn\">저장</button></div><div style=\"margin-bottom: 10px; margin-top: 30px; width: 90%; border-bottom: 2px solid #FE6E2F; \"></div>");
 
             exportImg(document);
 
