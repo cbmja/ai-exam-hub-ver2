@@ -2,7 +2,7 @@ $(document).ready(function () {
 //SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
 
-const pdfUrl = "/25_O_odd.pdf";
+    const pdfUrl = "/25_O_odd.pdf";
     const jsonUrl = "/res_json.json";
 
     const pdfContainer = document.getElementById("pdf-container");
@@ -83,6 +83,7 @@ const pdfUrl = "/25_O_odd.pdf";
                             div.style.position = "absolute";
                             div.style.zIndex = "10";
                             div.style.pointerEvents = "auto";
+                            div.setAttribute("data-page", pageNum);
                             pageWrapper.appendChild(div);
                         });
                     });
@@ -100,18 +101,20 @@ $(document).on('click', '.open-folder-btn', function () {
 $(document).on('click', '.highlight-box', function () {
         let element  = $(this);
 
-        var position = element.position();  // left, top 값을 가져옵니다
-        var width = element.width();        // width 값을 가져옵니다
-        var height = element.height();      // height 값을 가져옵니다
+        var position = element.position();  // left, top 값
+        var width = element.width();        // width 값
+        var height = element.height();      // height 값
 
         console.log('Left:', position.left);
         console.log('Top:', position.top);
         console.log('Width:', width);
         console.log('Height:', height);
 
+        var pageNum = $(this).data('page') - 1;
+
         $('#test-box').css({
             left: position.left,
-            top: position.top, // 페이지 길이만큼  플러스 해줘야함. 2페이지는 1만큼 , 3페이지는 2만큼. 현제 페이지 -1만큼 y값 보정 필요
+            top: position.top + ( 1786.5 * pageNum), // 페이지 길이만큼  플러스 해줘야함. 2페이지는 1만큼 , 3페이지는 2만큼. 현제 페이지 -1만큼 y값 보정 필요
             width: width,
             height: height,
         });
